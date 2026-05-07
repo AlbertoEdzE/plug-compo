@@ -25,15 +25,17 @@ public sealed class InMemoryEventBusProvider(
         var correlationId = options?.CorrelationId ?? Guid.NewGuid().ToString();
         var dedupKey = $"{topic}:{messageId}";
 
-        if (!_processed.TryAdd(dedupKey, 0))
+        if (_processed.ContainsKey(dedupKey))
         {
             logger.LogInformation("Skipping duplicate message {MessageId} for topic {Topic}", messageId, topic);
             return;
         }
 
+        var anyConsumers = false;
         foreach (var registration in registrations.Where(r => r.Topic.Equals(topic, StringComparison.OrdinalIgnoreCase)))
         {
             ct.ThrowIfCancellationRequested();
+            anyConsumers = true;
 
             var payload = JsonSerializer.Deserialize(payloadJson, registration.MessageType);
             if (payload is null)
@@ -81,6 +83,11 @@ public sealed class InMemoryEventBusProvider(
             {
                 logger.LogInformation("Message {MessageId} dead-lettered by consumer {Consumer}", messageId, registration.ConsumerType.Name);
             }
+        }
+
+        if (anyConsumers)
+        {
+            _processed.TryAdd(dedupKey, 0);
         }
     }
 
