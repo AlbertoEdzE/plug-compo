@@ -377,7 +377,7 @@ services will use the correlation ID to trace a request end-to-end.
 ### KSPL-006: PII Redaction Filter
 
 **Epic**: EPIC-01  
-**Status**: TO DO  
+**Status**: IN PROGRESS  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/06-CUS-pii-redaction-filter.md`
