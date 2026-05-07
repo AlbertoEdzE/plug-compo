@@ -123,7 +123,7 @@ public sealed class IdempotencyDockerIntegrationTests
             }
         }
 
-        throw new Xunit.Sdk.SkipException();
+        Assert.Skip();
     }
 
     private static async Task EnsureSqlSchemaAsync(SqlConnection conn)
@@ -192,7 +192,7 @@ public sealed class IdempotencyDockerIntegrationTests
             }
         }
 
-        throw new Xunit.Sdk.SkipException();
+        Assert.Skip();
     }
 
     private static async Task ResetRedisAsync()
