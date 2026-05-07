@@ -123,7 +123,7 @@ public sealed class IdempotencyDockerIntegrationTests
             }
         }
 
-        throw new InvalidOperationException("SQL Server not reachable for integration tests.", last);
+        throw new Xunit.Sdk.SkipException($"SQL Server not reachable for integration tests. {last?.Message}");
     }
 
     private static async Task EnsureSqlSchemaAsync(SqlConnection conn)
@@ -192,7 +192,7 @@ public sealed class IdempotencyDockerIntegrationTests
             }
         }
 
-        throw new InvalidOperationException("Redis not reachable for integration tests.", last);
+        throw new Xunit.Sdk.SkipException($"Redis not reachable for integration tests. {last?.Message}");
     }
 
     private static async Task ResetRedisAsync()
@@ -209,4 +209,3 @@ public sealed class IdempotencyDockerIntegrationTests
 
     private const string RedisConnectionString = "localhost:16379";
 }
-
