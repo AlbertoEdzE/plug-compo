@@ -244,7 +244,7 @@ plug-compo/
 ### KSPL-000: Initialize repository, solution structure, and shared tooling
 
 **Epic**: EPIC-00  
-**Status**: TO DO  
+**Status**: IN PROGRESS  
 **Priority**: Critical  
 **Language**: Shell / C# .NET 8 / Python 3.11  
 **Spec Reference**: `README.md`
