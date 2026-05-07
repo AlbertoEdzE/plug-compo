@@ -725,7 +725,7 @@ The `diff` field captures before/after state as a JSON document.
 ### KSPL-008: Email Send Adapter
 
 **Epic**: EPIC-03  
-**Status**: TO DO  
+**Status**: IN PROGRESS  
 **Priority**: High  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/08-EXT-email-send-adapter.md`
