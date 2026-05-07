@@ -111,7 +111,7 @@ public sealed class LocalFileSystemConnector : IBlobStorageConnector
         );
     }
 
-    public async Task<BlobSasResult> GenerateSasUrlAsync(BlobSasRequest request, CancellationToken ct = default)
+    public Task<BlobSasResult> GenerateSasUrlAsync(BlobSasRequest request, CancellationToken ct = default)
     {
         if (string.IsNullOrWhiteSpace(_options.LocalRootPath))
         {
@@ -133,7 +133,7 @@ public sealed class LocalFileSystemConnector : IBlobStorageConnector
             Query = $"expiresAt={expiresAt.ToUnixTimeSeconds()}"
         };
 
-        return new BlobSasResult(uriBuilder.Uri.ToString(), expiresAt);
+        return Task.FromResult(new BlobSasResult(uriBuilder.Uri.ToString(), expiresAt));
     }
 
     public Task<bool> ExistsAsync(string blobPath, CancellationToken ct = default)
