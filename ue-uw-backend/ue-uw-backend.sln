@@ -50,6 +50,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{E4863B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.BlobStorage.Tests", "shared\KSquare.BlobStorage.Tests\KSquare.BlobStorage.Tests.csproj", "{52AEE78B-0DFB-4AE1-8968-907421B6F4BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.EventBus.Tests", "shared\KSquare.EventBus.Tests\KSquare.EventBus.Tests.csproj", "{2D369969-427C-4835-87D9-CB0CBFC4E9F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -148,11 +150,16 @@ Global
 		{52AEE78B-0DFB-4AE1-8968-907421B6F4BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52AEE78B-0DFB-4AE1-8968-907421B6F4BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52AEE78B-0DFB-4AE1-8968-907421B6F4BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D369969-427C-4835-87D9-CB0CBFC4E9F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D369969-427C-4835-87D9-CB0CBFC4E9F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D369969-427C-4835-87D9-CB0CBFC4E9F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D369969-427C-4835-87D9-CB0CBFC4E9F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{52AEE78B-0DFB-4AE1-8968-907421B6F4BD} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
+		{2D369969-427C-4835-87D9-CB0CBFC4E9F1} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 	EndGlobalSection
 EndGlobal
