@@ -378,7 +378,7 @@ services will use the correlation ID to trace a request end-to-end.
 
 **Epic**: EPIC-01  
 **Status**: DONE  
-**Done**: 2026-05-07 (617c634)  
+**Done**: 2026-05-07 (84fae1e)  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/06-CUS-pii-redaction-filter.md`
