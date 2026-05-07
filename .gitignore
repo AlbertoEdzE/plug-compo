@@ -43,4 +43,5 @@ Thumbs.db
 # IDE
 .idea/
 .vscode/settings.json
+.claude/
 *.swp

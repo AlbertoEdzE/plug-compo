@@ -1,0 +1,35 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: kspl-test-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      SA_PASSWORD: ${SQLSERVER_SA_PASSWORD:-LocalDev_SA_Password123!}
+    ports:
+      - "14333:1433"
+
+  redis:
+    image: redis:7-alpine
+    container_name: kspl-test-redis
+    ports:
+      - "16379:6379"
+
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: kspl-test-azurite
+    command: >
+      azurite
+      --blobHost 0.0.0.0
+      --queueHost 0.0.0.0
+      --tableHost 0.0.0.0
+      --location /data
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+    volumes:
+      - azurite-data:/data
+
+volumes:
+  azurite-data:
