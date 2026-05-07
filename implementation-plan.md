@@ -199,6 +199,23 @@ plug-compo/
 │       ├── UeUw.SubmissionApi/
 │       ├── UeUw.QuoteApi/
 │       └── ...
+├── lab/                              <- Progressive Integration Testbed (EPIC-09)
+│   ├── README.md
+│   ├── docker-compose.lab.yml        <- all infrastructure for lab runs
+│   ├── run_canvas.py                 <- entry point: python run_canvas.py --phase N
+│   ├── core/
+│   │   ├── scenario_runner.py
+│   │   ├── health_report.py
+│   │   └── snapshot.py
+│   ├── synthesizers/                 <- shared cross-canvas data synthesizers
+│   └── scenarios/
+│       ├── canvas_1_infrastructure.py
+│       ├── canvas_2_communication.py
+│       ├── canvas_3_document_intelligence.py
+│       ├── canvas_4_ai_agent.py
+│       ├── canvas_5_quote_bind.py
+│       ├── canvas_6_ai_intelligence.py
+│       └── canvas_full_system.py
 └── tools/
     └── synthesizers/                 <- shared data synthesizer scripts
 ```
@@ -218,6 +235,7 @@ plug-compo/
 | EPIC-06 | AI Agent Core | KSPL-013, KSPL-017 | High |
 | EPIC-07 | Quote, Bind, Lifecycle | KSPL-018, KSPL-019, KSPL-020, KSPL-021 | High |
 | EPIC-08 | AI Intelligence Layer | KSPL-022, KSPL-023, KSPL-024, KSPL-025 | Medium |
+| EPIC-09 | Progressive Integration Testbed | KSPL-026 through KSPL-034 | Critical |
 
 ---
 
@@ -1775,7 +1793,589 @@ execute tool are registered with Component 13's `ToolRouter` at startup.
 
 ---
 
-## 14. Appendix: Dependency Graph Summary
+## 14. EPIC-09: Progressive Integration Testbed
+
+### Philosophy
+
+Unit tests verify that a component behaves correctly in isolation. They are necessary but not
+sufficient. A system where every component passes its unit tests can still fail at the composition
+level because interfaces carry implicit semantic contracts that type signatures do not capture.
+
+The third level of correctness is **emergent correctness**: the property that when components
+operate together, the whole system exhibits the intended behavior and no unexpected behaviors arise
+from their interaction. This cannot be derived from isolation tests. It must be observed.
+
+The Progressive Integration Testbed is the scientific instrument for measuring emergent
+correctness. It is not a test suite. It is a runnable environment that grows alongside the
+implementation — each completed EPIC extends the canvas with new capabilities, and the canvas
+is tagged as a reproducible baseline.
+
+This serves three purposes simultaneously:
+
+1. **Development gate.** An EPIC is not complete until its canvas scenario passes. The scenario
+   proves that the new components integrate correctly with all previously built components.
+
+2. **Regression guard.** Later canvases re-execute all earlier scenarios. If a change in Phase 5
+   breaks a Phase 2 behavior, the canvas detects it before the code is merged.
+
+3. **Shareable artifact.** Every canvas tag is a reproducible system state. A developer on a
+   new insurance project can check out `canvas-3-stable`, run `docker compose up` and
+   `python run_canvas.py --phase 3`, and have a working document intelligence pipeline in minutes
+   — not as documentation, but as a running, verified system. The canvas is the library's proof
+   of utility across projects.
+
+### Canvas Progression
+
+| Canvas | Git Tag | EPIC Completed | Components Exercised |
+|---|---|---|---|
+| Canvas 1 | `canvas-1-stable` | EPIC-01 + EPIC-02 | 03, 05, 06, 01, 02, 04 |
+| Canvas 2 | `canvas-2-stable` | EPIC-03 | adds 08, 07, 09 |
+| Canvas 3 | `canvas-3-stable` | EPIC-04 + EPIC-05 | adds 10, 11, 12, 14, 16, 15 |
+| Canvas 4 | `canvas-4-stable` | EPIC-06 | adds 13, 17 |
+| Canvas 5 | `canvas-5-stable` | EPIC-07 | adds 18, 19, 20, 21 |
+| Canvas 6 | `canvas-6-stable` | EPIC-08 | adds 22, 23, 24, 25 |
+| Canvas Full | `canvas-full-stable` | All EPICs | all 25 components, end-to-end |
+
+---
+
+### KSPL-026: Lab Infrastructure and Scenario Runner Framework
+
+**Epic**: EPIC-09  
+**Status**: TO DO  
+**Priority**: Critical  
+**Language**: Python 3.11  
+**Spec Reference**: `README.md` (project structure section), this EPIC
+
+#### Pre-Implementation Requirement
+
+Read the Repository Structure section of `implementation-plan.md` for the `lab/` directory
+layout. Then read the EPIC-09 philosophy section above in full. The lab must be implemented as
+a self-contained directory: anyone who checks out the repository can run it without knowing
+anything about the rest of the codebase.
+
+#### Description
+
+Create the `lab/` directory with all scaffolding needed to run integration scenarios. This
+includes the Docker Compose environment for the lab (separate from the per-component test Docker
+Compose), the `ScenarioRunner` base class that all canvas scenarios inherit from, the
+`HealthReport` generator that produces structured JSON reports, and the `snapshot.py` tool that
+creates and pushes git tags when a canvas passes.
+
+The `run_canvas.py` entry point accepts `--phase N` (1-6 or `full`) and executes the
+corresponding scenario. It exits with code 0 on pass and 1 on fail.
+
+#### Dependencies
+
+- KSPL-000: solution skeleton and root `.gitignore` must include `lab/reports/`
+
+#### Acceptance Criteria
+
+- [ ] `lab/docker-compose.lab.yml` provisions: SQL Server 2022 (port 1433), Redis 7 (port 6379), Azurite (ports 10000-10002), and a stub HTTP server (WireMock standalone, port 8080) for external API simulation
+- [ ] `ScenarioRunner` base class: `setup()`, `run()`, `teardown()`, `report()` lifecycle methods; subclasses override `run()`
+- [ ] `HealthReport` produces a JSON document with: scenario name, canvas number, timestamp, components exercised, assertions passed, assertions failed, and overall status
+- [ ] `snapshot.py`: reads `lab/reports/canvas-N-report.json`; if all assertions passed, creates and pushes git tag `canvas-N-stable`; aborts if any assertion failed
+- [ ] `run_canvas.py` CLI: `--phase {1,2,3,4,5,6,full}`, `--no-tag` flag to skip tagging, `--report-dir` override
+- [ ] `lab/reports/` is added to `.gitignore`
+- [ ] `lab/requirements.txt` includes: `pytest`, `faker`, `docker`, `httpx`, `pytest-asyncio`
+- [ ] Running `python lab/run_canvas.py --phase 1 --no-tag` with no components yet built exits cleanly with a `SKIP` report (not an error) so the framework itself is testable before any EPIC is complete
+- [ ] All framework code has unit tests in `lab/tests/test_framework.py`
+
+#### Expected Outputs
+
+```
+lab/
+├── README.md
+├── docker-compose.lab.yml
+├── run_canvas.py
+├── requirements.txt
+├── core/
+│   ├── scenario_runner.py
+│   ├── health_report.py
+│   └── snapshot.py
+├── synthesizers/
+│   └── base_synthesizer.py
+├── scenarios/
+│   └── (empty, populated by subsequent tickets)
+├── tests/
+│   └── test_framework.py
+└── reports/         <- .gitignored
+```
+
+#### Ticket Correlations
+
+- KSPL-027 through KSPL-033: all canvas scenario tickets depend on this framework
+- KSPL-034: snapshot release pipeline depends on `snapshot.py` from this ticket
+
+---
+
+### KSPL-027: Canvas 1 — Cross-Cutting and Platform Infrastructure
+
+**Epic**: EPIC-09  
+**Status**: TO DO  
+**Priority**: Critical  
+**Language**: Python 3.11 (orchestrates C# components via subprocess / HTTP)  
+**Spec Reference**: `doc/05-CUS-correlation-context.md`, `doc/06-CUS-pii-redaction-filter.md`, `doc/03-CUS-idempotency-guard.md`, `doc/01-AZR-blob-storage-connector.md`, `doc/02-AZR-event-bus-connector.md`, `doc/04-HYB-audit-trail-writer.md`
+
+#### Pre-Implementation Requirement
+
+Read all six spec files listed above before writing the scenario. The canvas scenario must
+exercise the exact interfaces described in those files. Read the Canvas 1 row in the Canvas
+Progression table to understand which components are in scope.
+
+#### Description
+
+Implement `lab/scenarios/canvas_1_infrastructure.py`. This scenario proves that the six
+foundational components work correctly together under real infrastructure conditions.
+
+The scenario flow:
+1. Synthesize a submission ID and correlation ID
+2. Verify correlation ID propagates through a simulated request boundary (AsyncLocal)
+3. Synthesize a JSON payload containing a real email address and phone number
+4. Verify PII redaction masks them before the payload is written to the audit trail
+5. Publish an event via InMemory EventBus; verify consumer receives exactly one copy
+6. Attempt to publish the same event with the same idempotency key; verify the second attempt is blocked
+7. Upload a synthesized blob (1 KB random bytes) to Azurite; download it; verify byte-for-byte equality
+8. Write two audit events to SQL Server; query them back; verify append-only invariant (no UPDATE issued)
+9. Verify all 8 assertions produce a passing health report
+10. Tag `canvas-1-stable` if `--no-tag` is not passed
+
+#### Dependencies
+
+- KSPL-026: lab framework
+- KSPL-005, KSPL-006, KSPL-003: EPIC-01 must be DONE
+- KSPL-001, KSPL-002, KSPL-004: EPIC-02 must be DONE
+
+#### Acceptance Criteria
+
+- [ ] Canvas runs end-to-end without manual intervention from a clean Docker state
+- [ ] All 8 scenario assertions pass and appear in `lab/reports/canvas-1-report.json`
+- [ ] PII assertion: the audit record in SQL contains `[REDACTED]` where the email was
+- [ ] Idempotency assertion: second event publish returns a blocked result; event consumer called exactly once
+- [ ] Blob assertion: downloaded bytes are identical to uploaded bytes (SHA256 match)
+- [ ] Audit assertion: SQL query of `audit_trail` returns exactly 2 rows; no UPDATE statement issued
+- [ ] Canvas completes in under 60 seconds on standard developer hardware
+- [ ] `canvas-1-stable` git tag is created on clean run without `--no-tag`
+
+#### Expected Outputs
+
+- `lab/scenarios/canvas_1_infrastructure.py`
+- `lab/synthesizers/infrastructure_synthesizer.py`
+- `lab/reports/canvas-1-report.json` (generated; gitignored)
+
+#### Ticket Correlations
+
+- KSPL-028: Canvas 2 runs all Canvas 1 assertions first, then adds communication assertions
+- All KSPL-00N through KSPL-004: these components are exercised here at the integration level for the first time
+
+---
+
+### KSPL-028: Canvas 2 — Communication Layer
+
+**Epic**: EPIC-09  
+**Status**: TO DO  
+**Priority**: High  
+**Language**: Python 3.11  
+**Spec Reference**: `doc/08-EXT-email-send-adapter.md`, `doc/07-EXT-email-ingestion-connector.md`, `doc/09-CUS-notification-dispatcher.md`
+
+#### Pre-Implementation Requirement
+
+Read all three spec files listed above. Note that Canvas 2 re-runs all Canvas 1 assertions
+before adding new ones. A Canvas 2 failure in a Canvas 1 assertion is a regression introduced
+by the Phase 3 components.
+
+#### Description
+
+Implement `lab/scenarios/canvas_2_communication.py`. Extends Canvas 1 by exercising the full
+email I/O loop and notification dispatch.
+
+The additional scenario flow (after Canvas 1 passes):
+1. Synthesize a MIME email with two attachments; stub Microsoft Graph API responses in WireMock
+2. Run email ingestion; verify `EmailReceivedEvent` published and both attachments stored in Azurite
+3. Verify deduplication: send the same email fingerprint again; confirm no second event published
+4. Synthesize an outbound email message with a Liquid template variable; stub SendGrid in WireMock
+5. Verify rendered email body contains the variable value
+6. Dispatch an in-app notification; verify it is persisted to SQL with correct recipient ID
+7. Dispatch the same notification twice within the dedup window; verify SQL contains exactly one row
+
+#### Dependencies
+
+- KSPL-026: lab framework
+- KSPL-027: Canvas 1 must pass (assertions are re-run)
+- KSPL-008, KSPL-007, KSPL-009: EPIC-03 must be DONE
+
+#### Acceptance Criteria
+
+- [ ] Canvas 1 assertions all pass as part of Canvas 2 run
+- [ ] Email ingestion produces exactly one `EmailReceivedEvent` per unique email fingerprint
+- [ ] Both attachment blob URIs are present in the event payload
+- [ ] Rendered email body contains the synthesized variable value (not the template placeholder)
+- [ ] Notification deduplication: SQL has exactly one row for the duplicate dispatch test
+- [ ] Canvas completes in under 90 seconds
+- [ ] `canvas-2-stable` git tag is created on clean run
+
+#### Expected Outputs
+
+- `lab/scenarios/canvas_2_communication.py`
+- `lab/synthesizers/email_synthesizer.py`
+
+#### Ticket Correlations
+
+- KSPL-027: re-runs Canvas 1 as regression check
+- KSPL-029: Canvas 3 extends Canvas 2 with document intelligence scenarios
+
+---
+
+### KSPL-029: Canvas 3 — Document Intelligence and Rules
+
+**Epic**: EPIC-09  
+**Status**: TO DO  
+**Priority**: High  
+**Language**: Python 3.11  
+**Spec Reference**: `doc/10-AZR-document-extraction-adapter.md`, `doc/11-AZR-document-classification-adapter.md`, `doc/12-CUS-extraction-result-mapper.md`, `doc/14-CUS-rules-engine-nrules.md`, `doc/16-CUS-risk-analysis-engine.md`, `doc/15-EXT-form-template-engine.md`
+
+#### Pre-Implementation Requirement
+
+Read all six spec files above. Canvas 3 exercises the complete document processing pipeline in
+a single linear flow. Pay close attention to how `UnmappedFields` flows from ExtractionMapper
+to be consumed later by IntelligentPrefill (Canvas 6).
+
+#### Description
+
+Implement `lab/scenarios/canvas_3_document_intelligence.py`. Exercises the document pipeline
+and risk analysis end-to-end with synthesized data.
+
+Additional scenario flow:
+1. Synthesize application form text mimicking an ACORD 125 (institution name, enrollment, TIV, coverage lines, loss run table)
+2. Stub Azure Document Intelligence in WireMock; run extraction; verify confidence routing
+3. Run classification; verify document is classified as `ACORD125`
+4. Run ExtractionMapper; verify required fields are mapped; collect `UnmappedFields`
+5. Load intake-routing rules; verify submission routes to correct underwriter queue
+6. Run risk analysis on synthesized loss run; verify composite score formula is mathematically correct
+7. Verify appetite fit classification matches expected value for the synthesized indicators
+8. Run bind-readiness rules with a complete and an incomplete context; verify `Ready` and `NotReady` results respectively
+9. Synthesize a form fill request; run iText7 provider; verify output PDF is non-empty bytes
+
+#### Dependencies
+
+- KSPL-026: lab framework
+- KSPL-028: Canvas 2 must pass
+- KSPL-010, KSPL-011, KSPL-012: EPIC-04 must be DONE
+- KSPL-014, KSPL-016, KSPL-015: EPIC-05 must be DONE
+
+#### Acceptance Criteria
+
+- [ ] Canvases 1 and 2 assertions all pass as regression check
+- [ ] Extraction confidence routing: synthesized high-confidence field is classified `AutoAccepted`
+- [ ] Composite risk score matches the expected hand-calculated value within floating point tolerance (1e-6)
+- [ ] Bind-readiness with missing required field returns `NotReady` with that field named in blocking reasons
+- [ ] Canvas completes in under 120 seconds
+- [ ] `canvas-3-stable` git tag is created on clean run
+
+#### Expected Outputs
+
+- `lab/scenarios/canvas_3_document_intelligence.py`
+- `lab/synthesizers/document_synthesizer.py`, `risk_synthesizer.py`
+
+#### Ticket Correlations
+
+- KSPL-028: re-runs Canvas 2 as regression check
+- KSPL-023 (IntelligentPrefill): the `UnmappedFields` produced by this canvas scenario are the input to Canvas 6
+
+---
+
+### KSPL-030: Canvas 4 — AI Agent Core
+
+**Epic**: EPIC-09  
+**Status**: TO DO  
+**Priority**: High  
+**Language**: Python 3.11  
+**Spec Reference**: `doc/13-HYB-llm-provider-adapter.md`, `doc/17-AZR-llm-observability.md`
+
+#### Pre-Implementation Requirement
+
+Read both spec files. Understand the AG UI SSE event sequence precisely. The canvas must verify
+not just that an HTTP 200 is returned, but that the SSE event stream contains the correct event
+types in the correct order.
+
+#### Description
+
+Implement `lab/scenarios/canvas_4_ai_agent.py`. Exercises the agent orchestrator with a
+synthesized multi-turn conversation.
+
+Additional scenario flow:
+1. Synthesize a conversation turn: "What is the risk summary for submission SUB-001?"
+2. Stub Azure OpenAI and Azure AI Search in WireMock; stub Azure Content Safety to return safe
+3. POST to agent orchestrator; collect SSE events
+4. Verify event sequence: `RunStarted` → at least one `ToolCall` (get_submission_summary) → `ToolResult` → `TextDelta` → `RunFinished`
+5. Verify conversation is written to SQL with PII redacted
+6. Verify evaluation score is written (groundedness judge stub returns 0.85)
+7. Verify a prompt injection attempt is blocked by SafetyGuard (Azure Content Safety stub returns unsafe)
+8. Verify cost telemetry event is written to `llm_cost_daily` table
+
+#### Dependencies
+
+- KSPL-026: lab framework
+- KSPL-029: Canvas 3 must pass
+- KSPL-013, KSPL-017: EPIC-06 must be DONE
+
+#### Acceptance Criteria
+
+- [ ] Canvases 1, 2, and 3 assertions pass as regression check
+- [ ] SSE event sequence matches spec exactly
+- [ ] SQL `conversation_audit` has one row per turn with `[REDACTED]` where PII was present
+- [ ] Prompt injection: HTTP 400 returned; no LLM call made (WireMock stub records zero calls to OpenAI endpoint)
+- [ ] Canvas completes in under 120 seconds
+- [ ] `canvas-4-stable` git tag is created on clean run
+
+#### Expected Outputs
+
+- `lab/scenarios/canvas_4_ai_agent.py`
+- `lab/synthesizers/conversation_synthesizer.py`
+
+#### Ticket Correlations
+
+- KSPL-029: re-runs Canvas 3 as regression check
+- KSPL-030 uses same WireMock stub infrastructure that Canvas 6 will extend for LLM-calling AI components
+
+---
+
+### KSPL-031: Canvas 5 — Quote, Bind, and Lifecycle
+
+**Epic**: EPIC-09  
+**Status**: TO DO  
+**Priority**: High  
+**Language**: Python 3.11  
+**Spec Reference**: `doc/18-CUS-rating-adapter.md`, `doc/19-EXT-proposal-orchestrator.md`, `doc/20-CUS-policy-admin-adapter.md`, `doc/21-CUS-state-machine.md`
+
+#### Pre-Implementation Requirement
+
+Read all four spec files. The state machine FSM transitions are the most critical thing to
+verify here. The canvas must walk the complete Quote FSM from `Draft` to `Approved` and verify
+that every state transition produces an audit event and publishes a `StateTransitionedEvent`.
+
+#### Description
+
+Implement `lab/scenarios/canvas_5_quote_bind.py`. Exercises the full quote-to-bind lifecycle.
+
+Additional scenario flow:
+1. Synthesize a coverage pricing request; call MockRatingAdapter; verify deterministic premium
+2. Transition Quote FSM: `Draft → PricingRequested → Priced`; verify each transition produces audit + event
+3. Stub GhostDraft in WireMock; submit proposal job; poll to completion; verify artifact in Azurite
+4. Transition Quote FSM: `Priced → ProposalGenerated → Presented`; verify events
+5. Run bind-readiness rules (all required fields present); verify `Ready`
+6. Stub PCAS in WireMock; submit bind; poll for policy number; verify `PolicyBoundEvent` published
+7. Transition Quote FSM: `Presented → Accepted`; verify final state in SQL
+8. Attempt an invalid transition (e.g., `Accepted → Priced`); verify `InvalidTransitionException`
+9. Simulate concurrent bind attempt on same entity; verify one succeeds and the other gets `ConcurrencyException`
+
+#### Dependencies
+
+- KSPL-026: lab framework
+- KSPL-030: Canvas 4 must pass
+- KSPL-018, KSPL-019, KSPL-020, KSPL-021: EPIC-07 must be DONE
+
+#### Acceptance Criteria
+
+- [ ] Canvases 1 through 4 assertions pass as regression check
+- [ ] Complete Quote FSM lifecycle produces exactly 6 `StateTransitionedEvent` messages in correct order
+- [ ] All 6 events are also written as audit trail rows in SQL
+- [ ] Invalid transition produces `InvalidTransitionException` — no audit event written, no event published
+- [ ] Concurrent bind: exactly one `PolicyBoundEvent`; one `ConcurrencyException`
+- [ ] Canvas completes in under 150 seconds
+- [ ] `canvas-5-stable` git tag is created on clean run
+
+#### Expected Outputs
+
+- `lab/scenarios/canvas_5_quote_bind.py`
+- `lab/synthesizers/quote_synthesizer.py`
+
+#### Ticket Correlations
+
+- KSPL-030: re-runs Canvas 4 as regression check
+
+---
+
+### KSPL-032: Canvas 6 — AI Intelligence Layer
+
+**Epic**: EPIC-09  
+**Status**: TO DO  
+**Priority**: Medium  
+**Language**: Python 3.11  
+**Spec Reference**: `doc/22-HYB-ai-email-triage.md`, `doc/23-HYB-intelligent-prefill-engine.md`, `doc/24-HYB-document-narrative-engine.md`, `doc/25-HYB-agentic-action-toolkit.md`
+
+#### Pre-Implementation Requirement
+
+Read all four spec files. The Draft-Confirm-Execute pattern in Canvas 6 is the most complex
+interaction sequence in the full system. The canvas must verify that a draft action created by
+the agentic toolkit is confirmed by a human-simulated confirmation call, and only then executed,
+and that the corresponding state machine transition fires.
+
+#### Description
+
+Implement `lab/scenarios/canvas_6_ai_intelligence.py`. Exercises the AI intelligence layer
+components in sequence.
+
+Additional scenario flow:
+1. Synthesize an incoming email; stub Azure OpenAI in WireMock; run triage; verify intent + entities
+2. Verify triage result triggers correct routing suggestion
+3. Take `UnmappedFields` from Canvas 3 scenario synthesizer; stub GPT-4o; run intelligent prefill for 20 fields; verify exactly 2 LLM calls (batching)
+4. Synthesize `SubmissionContext` + `LossHistoryContext`; generate all 4 narrative types; verify word counts and section structure
+5. Call `draft_referral` tool; verify `DraftAction` created with correct payload
+6. Call `execute_draft_action` with draft ID; verify referral event published and Submission FSM transitions to `Referred`
+7. Attempt to execute the same draft again; verify idempotent return (no duplicate event)
+8. Advance time past 10-minute TTL; attempt execute; verify `DraftExpiredException`
+
+#### Dependencies
+
+- KSPL-026: lab framework
+- KSPL-031: Canvas 5 must pass
+- KSPL-022, KSPL-023, KSPL-024, KSPL-025: EPIC-08 must be DONE
+
+#### Acceptance Criteria
+
+- [ ] Canvases 1 through 5 assertions pass as regression check
+- [ ] Intelligent prefill batching: 20 fields → 2 WireMock-intercepted LLM calls
+- [ ] Referral narrative sections dict has >= 4 keys
+- [ ] Draft-Confirm-Execute: exactly one referral event published; duplicate execute returns original result without a second event
+- [ ] TTL expiry: `DraftExpiredException` raised; no event published
+- [ ] Canvas completes in under 180 seconds
+- [ ] `canvas-6-stable` git tag is created on clean run
+
+#### Expected Outputs
+
+- `lab/scenarios/canvas_6_ai_intelligence.py`
+- `lab/synthesizers/ai_synthesizer.py`
+
+#### Ticket Correlations
+
+- KSPL-031: re-runs Canvas 5 as regression check
+- KSPL-033: Full System Canvas extends this scenario into an end-to-end workflow
+
+---
+
+### KSPL-033: Canvas Full — End-to-End System Scenario
+
+**Epic**: EPIC-09  
+**Status**: TO DO  
+**Priority**: Medium  
+**Language**: Python 3.11  
+**Spec Reference**: All 25 component spec files in `doc/`
+
+#### Pre-Implementation Requirement
+
+Read the README.md Build Order section and the complete EPIC-09 philosophy section above before
+writing this scenario. The full canvas is not a union of previous canvases — it is a coherent
+narrative that follows a single synthetic submission from first email to bound policy. Every
+component must contribute at least one assertion to this scenario.
+
+#### Description
+
+Implement `lab/scenarios/canvas_full_system.py`. This is the canonical end-to-end proof that
+all 25 components function as a unified system.
+
+The end-to-end workflow narrative (single synthesized submission):
+1. Email arrives (Component 07) → AI triage classifies as `NewSubmission` (Component 22) → `EmailTriagedEvent` published (Component 02)
+2. Submission record created in SQL; correlation ID propagated (Component 05)
+3. Application form document uploaded to blob (Component 01) → extracted (Component 10) → classified as ACORD125 (Component 11) → fields mapped (Component 12) → unmapped fields filled by prefill (Component 23)
+4. Risk analysis computed (Component 16); appetite fit = `In Appetite`
+5. Intake routing rules route to `K12-UW-Queue` (Component 14)
+6. Submission FSM transitions: `Draft → Submitted → InReview` (Component 21); audit events written (Component 04)
+7. Agent asked: "Summarize the risk" → returns a grounded response citing risk indicators (Component 13)
+8. Risk summary narrative generated (Component 24)
+9. Rating computed via MockRatingAdapter (Component 18)
+10. Proposal generated via stubbed GhostDraft (Component 19); stored to blob (Component 01)
+11. Submission FSM transitions: `InReview → Approved` (Component 21)
+12. Bind submitted to stubbed PCAS (Component 20) → `PolicyBoundEvent` → Quote FSM transitions to `Accepted`
+13. Notification dispatched to underwriter (Component 09); in-app notification verified in SQL
+14. Throughout: PII redacted in all audit records (Component 06); all events pass idempotency guard (Component 03); form template filled (Component 15)
+
+At completion: the health report contains at least one assertion per component (25 total).
+
+#### Dependencies
+
+- KSPL-026: lab framework
+- KSPL-032: Canvas 6 must pass (all prior canvases transitively)
+- All 25 component tickets must be DONE
+
+#### Acceptance Criteria
+
+- [ ] All 25 component spec assertions are represented in the health report
+- [ ] Single synthesized submission traverses the complete lifecycle described above
+- [ ] No external paid API is called; all external endpoints are stubbed in WireMock
+- [ ] Health report `overall_status` is `PASS` with 0 failed assertions
+- [ ] Canvas completes in under 300 seconds
+- [ ] `canvas-full-stable` git tag is created on clean run
+
+#### Expected Outputs
+
+- `lab/scenarios/canvas_full_system.py`
+- `lab/reports/canvas-full-report.json` (generated; gitignored)
+
+#### Ticket Correlations
+
+- All KSPL-NNN tickets: every component is exercised here
+
+---
+
+### KSPL-034: Snapshot Release Pipeline
+
+**Epic**: EPIC-09  
+**Status**: TO DO  
+**Priority**: High  
+**Language**: Python 3.11 / Shell  
+**Spec Reference**: This EPIC
+
+#### Pre-Implementation Requirement
+
+Read the Canvas Progression table in EPIC-09 above. The release pipeline must create tags exactly
+as specified in that table. Tags must be annotated (not lightweight) so they carry a message
+describing which canvas scenario passed and when.
+
+#### Description
+
+Implement the automated snapshot release mechanism. When a canvas scenario passes, the pipeline:
+1. Reads `lab/reports/canvas-N-report.json`
+2. Verifies `overall_status == "PASS"` and `failed_assertions == 0`
+3. Creates an annotated git tag `canvas-N-stable` with the report summary as the tag message
+4. Pushes the tag to `origin`
+
+This is also the gate for cross-project adoption. The tag message includes the list of
+components exercised, the canvas completion time, and the date — so any developer reading the
+tag history understands exactly what state the system was in when each stable baseline was cut.
+
+Additionally, create a `lab/BASELINES.md` file that TRAE SOLO updates after each snapshot. This
+file serves as the human-readable record of stable baselines and is the first thing a new
+developer reads when adopting the library for a new project.
+
+#### Dependencies
+
+- KSPL-026: `snapshot.py` framework created here
+- KSPL-027 through KSPL-033: each canvas scenario must exist before its tag can be created
+
+#### Acceptance Criteria
+
+- [ ] `snapshot.py` creates annotated tag with report summary in the tag message
+- [ ] Tag push uses the configured `origin` remote; aborts with clear error message if remote is not reachable
+- [ ] Attempting to tag when `overall_status != "PASS"` aborts with exit code 1 and prints the failed assertions
+- [ ] Attempting to create a tag that already exists aborts with a clear message (no force-push)
+- [ ] `lab/BASELINES.md` is updated by `snapshot.py` with: tag name, date, components exercised, canvas run time
+- [ ] Unit tests for `snapshot.py` cover: pass case, fail case, already-tagged case
+- [ ] `lab/BASELINES.md` is committed and tracked in git (not gitignored)
+
+#### Expected Outputs
+
+- `lab/core/snapshot.py` (extended from KSPL-026 stub)
+- `lab/BASELINES.md`
+- `lab/tests/test_snapshot.py`
+
+#### Ticket Correlations
+
+- KSPL-026: `snapshot.py` skeleton created there; this ticket completes it
+- KSPL-027 through KSPL-033: each canvas ticket depends on this working snapshot mechanism
+
+---
+
+## 15. Appendix: Dependency Graph Summary
 
 The following table shows the build dependency graph. A component may not be started until all
 listed dependencies are DONE.
@@ -1808,6 +2408,15 @@ listed dependencies are DONE.
 | KSPL-023 | KSPL-012 |
 | KSPL-024 | KSPL-016 |
 | KSPL-025 | KSPL-013, KSPL-002 |
+| KSPL-026 | KSPL-000 |
+| KSPL-027 | KSPL-026, KSPL-005, KSPL-006, KSPL-003, KSPL-001, KSPL-002, KSPL-004 |
+| KSPL-028 | KSPL-027, KSPL-008, KSPL-007, KSPL-009 |
+| KSPL-029 | KSPL-028, KSPL-010, KSPL-011, KSPL-012, KSPL-014, KSPL-016, KSPL-015 |
+| KSPL-030 | KSPL-029, KSPL-013, KSPL-017 |
+| KSPL-031 | KSPL-030, KSPL-018, KSPL-019, KSPL-020, KSPL-021 |
+| KSPL-032 | KSPL-031, KSPL-022, KSPL-023, KSPL-024, KSPL-025 |
+| KSPL-033 | KSPL-032 (all 25 component tickets transitively) |
+| KSPL-034 | KSPL-026, KSPL-027 through KSPL-033 |
 
 ---
 
