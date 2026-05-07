@@ -589,7 +589,7 @@ orchestrator (proposal artifact download), and any component that persists binar
 ### KSPL-002: Event Bus Connector
 
 **Epic**: EPIC-02  
-**Status**: TO DO  
+**Status**: IN PROGRESS  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/02-AZR-event-bus-connector.md`
