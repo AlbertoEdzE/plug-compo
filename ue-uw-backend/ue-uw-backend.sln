@@ -42,6 +42,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.StateMachine", "sha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.Correlation.Tests", "shared\\KSquare.Correlation.Tests\\KSquare.Correlation.Tests.csproj", "{D71732B9-4633-4344-9DBC-3B8943FA1A77}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.PiiRedaction.Tests", "shared\\KSquare.PiiRedaction.Tests\\KSquare.PiiRedaction.Tests.csproj", "{475323D6-73EA-4C5C-B411-A15CC82A3E50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -128,6 +130,10 @@ Global
 		{D71732B9-4633-4344-9DBC-3B8943FA1A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D71732B9-4633-4344-9DBC-3B8943FA1A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D71732B9-4633-4344-9DBC-3B8943FA1A77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{475323D6-73EA-4C5C-B411-A15CC82A3E50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{475323D6-73EA-4C5C-B411-A15CC82A3E50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{475323D6-73EA-4C5C-B411-A15CC82A3E50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{475323D6-73EA-4C5C-B411-A15CC82A3E50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
