@@ -47,15 +47,53 @@ public sealed class SqlServerIdempotencyGuard(IdempotencyOptions options) : IIde
             throw new InvalidOperationException("IdempotencyOptions.ConnectionString must be configured for SqlServer provider.");
         }
 
+        if (result.StatusCode < 0)
+        {
+            const string deleteSql = "DELETE FROM idempotency_keys WHERE [key] = @key;";
+
+            await using var deleteConn = new SqlConnection(options.ConnectionString);
+            await deleteConn.OpenAsync(ct).ConfigureAwait(false);
+
+            await using var deleteCmd = new SqlCommand(deleteSql, deleteConn);
+            deleteCmd.Parameters.AddWithValue("@key", key);
+            await deleteCmd.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
+            return;
+        }
+
         var effectiveTtl = ttl ?? options.DefaultHttpKeyTtl;
         var expiresAt = DateTimeOffset.UtcNow.Add(effectiveTtl);
 
-        const string sql = """
-            INSERT INTO idempotency_keys
-                ([key], status_code, response_body, content_type, processed_at, expires_at)
-            VALUES
-                (@key, @status_code, @response_body, @content_type, @processed_at, @expires_at);
-            """;
+        var sql = result.StatusCode == 0
+            ? """
+                INSERT INTO idempotency_keys
+                    ([key], status_code, response_body, content_type, processed_at, expires_at)
+                VALUES
+                    (@key, @status_code, @response_body, @content_type, @processed_at, @expires_at);
+                """
+            : """
+                BEGIN TRY
+                    INSERT INTO idempotency_keys
+                        ([key], status_code, response_body, content_type, processed_at, expires_at)
+                    VALUES
+                        (@key, @status_code, @response_body, @content_type, @processed_at, @expires_at);
+                END TRY
+                BEGIN CATCH
+                    IF ERROR_NUMBER() IN (2601, 2627)
+                    BEGIN
+                        UPDATE idempotency_keys
+                        SET status_code = @status_code,
+                            response_body = @response_body,
+                            content_type = @content_type,
+                            processed_at = @processed_at,
+                            expires_at = @expires_at
+                        WHERE [key] = @key;
+                    END
+                    ELSE
+                    BEGIN
+                        THROW;
+                    END
+                END CATCH
+                """;
 
         await using var conn = new SqlConnection(options.ConnectionString);
         await conn.OpenAsync(ct).ConfigureAwait(false);
@@ -68,13 +106,20 @@ public sealed class SqlServerIdempotencyGuard(IdempotencyOptions options) : IIde
         cmd.Parameters.AddWithValue("@processed_at", result.ProcessedAt);
         cmd.Parameters.AddWithValue("@expires_at", expiresAt);
 
-        try
+        if (result.StatusCode == 0)
         {
-            await cmd.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
+            try
+            {
+                await cmd.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
+            }
+            catch (SqlException ex) when (ex.Number is 2601 or 2627)
+            {
+            }
+
+            return;
         }
-        catch (SqlException ex) when (ex.Number is 2601 or 2627)
-        {
-        }
+
+        await cmd.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
     }
 
     public async Task<bool> TryMarkProcessedAsync(string messageId, TimeSpan? ttl = null, CancellationToken ct = default)
