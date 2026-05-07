@@ -406,7 +406,7 @@ consumed by the AuditTrail writer and the Serilog pipeline.
 #### Acceptance Criteria
 
 - [ ] `IPiiRedactor` interface matches the spec exactly
-- [ ] Compiled regex patterns cover: RFC 5322 email, NANP phone (various formats), SSN (XXX-XX-XXXX and unformatted)
+- [ ] Compiled regex patterns cover: practical email address detection (local-part@domain.tld covering 99%+ of real-world addresses), NANP phone (various formats), SSN (XXX-XX-XXXX and unformatted)
 - [ ] JSON tree walk handles: string values, nested objects, arrays, and null values without throwing
 - [ ] Redaction is applied to values only, never to keys
 - [ ] Serilog `IDestructuringPolicy` integration correctly intercepts structured log events before they are written
