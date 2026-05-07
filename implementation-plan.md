@@ -360,6 +360,10 @@ services will use the correlation ID to trace a request end-to-end.
   - `CorrelationDelegatingHandlerTests.cs`
   - `Synthesizers/CorrelationDataSynthesizer.cs`
 
+#### Implementation Notes
+
+- Implemented the folder layout defined in `doc/05-CUS-correlation-context.md` (Contracts/, Models/, Middleware/, Http/, Extensions/). This differs from the flat file list above; the spec file is treated as the source of truth for structure and naming.
+
 #### Ticket Correlations
 
 - KSPL-004 (AuditTrail): injects correlation ID into every audit event
