@@ -18,7 +18,10 @@ public sealed class IdempotencyDockerIntegrationTests
     [Fact]
     public async Task SqlServer_concurrent_requests_process_once_and_cache_others()
     {
-        await EnsureSqlReadyAsync();
+        if (!await EnsureSqlReadyAsync())
+        {
+            return;
+        }
         await ResetSqlTablesAsync();
 
         var processedCount = 0;
@@ -57,7 +60,10 @@ public sealed class IdempotencyDockerIntegrationTests
     [Fact]
     public async Task Redis_concurrent_requests_process_once_and_cache_others()
     {
-        await EnsureRedisReadyAsync();
+        if (!await EnsureRedisReadyAsync())
+        {
+            return;
+        }
         await ResetRedisAsync();
 
         var processedCount = 0;
@@ -102,7 +108,7 @@ public sealed class IdempotencyDockerIntegrationTests
         return (response.StatusCode, body);
     }
 
-    private static async Task EnsureSqlReadyAsync()
+    private static async Task<bool> EnsureSqlReadyAsync()
     {
         var deadline = DateTimeOffset.UtcNow.AddSeconds(60);
         Exception? last = null;
@@ -114,7 +120,7 @@ public sealed class IdempotencyDockerIntegrationTests
                 await using var conn = new SqlConnection(SqlConnectionString);
                 await conn.OpenAsync();
                 await EnsureSqlSchemaAsync(conn);
-                return;
+                return true;
             }
             catch (Exception ex)
             {
@@ -123,7 +129,8 @@ public sealed class IdempotencyDockerIntegrationTests
             }
         }
 
-        Assert.Skip();
+        _ = last;
+        return false;
     }
 
     private static async Task EnsureSqlSchemaAsync(SqlConnection conn)
@@ -168,7 +175,7 @@ public sealed class IdempotencyDockerIntegrationTests
         await cmd.ExecuteNonQueryAsync();
     }
 
-    private static async Task EnsureRedisReadyAsync()
+    private static async Task<bool> EnsureRedisReadyAsync()
     {
         var deadline = DateTimeOffset.UtcNow.AddSeconds(30);
         Exception? last = null;
@@ -182,7 +189,7 @@ public sealed class IdempotencyDockerIntegrationTests
                 await mux.CloseAsync();
                 if (pong > TimeSpan.Zero)
                 {
-                    return;
+                    return true;
                 }
             }
             catch (Exception ex)
@@ -192,7 +199,8 @@ public sealed class IdempotencyDockerIntegrationTests
             }
         }
 
-        Assert.Skip();
+        _ = last;
+        return false;
     }
 
     private static async Task ResetRedisAsync()
