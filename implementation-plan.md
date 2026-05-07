@@ -448,7 +448,7 @@ consumed by the AuditTrail writer and the Serilog pipeline.
 ### KSPL-003: Idempotency Guard
 
 **Epic**: EPIC-01  
-**Status**: TO DO  
+**Status**: IN PROGRESS  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/03-CUS-idempotency-guard.md`
