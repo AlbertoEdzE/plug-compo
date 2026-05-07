@@ -505,6 +505,10 @@ An ASP.NET Core middleware intercepts HTTP requests bearing an `Idempotency-Key`
   - `IdempotencyMiddlewareTests.cs`
   - `Synthesizers/IdempotencyDataSynthesizer.cs`
 
+#### Implementation Notes
+
+- Integration tests require Docker infrastructure. When SQL Server or Redis are not reachable, the integration tests return early so `dotnet test` can still run unit tests in environments without Docker.
+
 #### Ticket Correlations
 
 - KSPL-002 (EventBus): event consumer uses `IIdempotencyGuard` to prevent duplicate message processing
