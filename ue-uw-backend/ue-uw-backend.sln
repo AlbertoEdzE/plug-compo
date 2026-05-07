@@ -1,50 +1,58 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.BlobStorage", "shared\\KSquare.BlobStorage\\KSquare.BlobStorage.csproj", "{000B28AA-5018-455E-BB67-890EB69E81D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.BlobStorage", "shared\KSquare.BlobStorage\KSquare.BlobStorage.csproj", "{000B28AA-5018-455E-BB67-890EB69E81D1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.EventBus", "shared\\KSquare.EventBus\\KSquare.EventBus.csproj", "{3CA4D4BA-7863-489F-B819-E30A7DA6C959}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.EventBus", "shared\KSquare.EventBus\KSquare.EventBus.csproj", "{3CA4D4BA-7863-489F-B819-E30A7DA6C959}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.Idempotency", "shared\\KSquare.Idempotency\\KSquare.Idempotency.csproj", "{2398D60E-A379-43D5-B2D0-8968C2637E06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.Idempotency", "shared\KSquare.Idempotency\KSquare.Idempotency.csproj", "{2398D60E-A379-43D5-B2D0-8968C2637E06}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.AuditTrail", "shared\\KSquare.AuditTrail\\KSquare.AuditTrail.csproj", "{DC74F1F4-330C-4148-A988-982D20B87B60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.AuditTrail", "shared\KSquare.AuditTrail\KSquare.AuditTrail.csproj", "{DC74F1F4-330C-4148-A988-982D20B87B60}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.Correlation", "shared\\KSquare.Correlation\\KSquare.Correlation.csproj", "{7DB73AA6-67DD-45BE-A52A-CAADEB6E63C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.Correlation", "shared\KSquare.Correlation\KSquare.Correlation.csproj", "{7DB73AA6-67DD-45BE-A52A-CAADEB6E63C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.PiiRedaction", "shared\\KSquare.PiiRedaction\\KSquare.PiiRedaction.csproj", "{DADA0509-A457-4048-8719-AFC3F584B454}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.PiiRedaction", "shared\KSquare.PiiRedaction\KSquare.PiiRedaction.csproj", "{DADA0509-A457-4048-8719-AFC3F584B454}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.EmailIngestion", "shared\\KSquare.EmailIngestion\\KSquare.EmailIngestion.csproj", "{15E27D4D-8983-4A8E-ADCD-AC43C782350F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.EmailIngestion", "shared\KSquare.EmailIngestion\KSquare.EmailIngestion.csproj", "{15E27D4D-8983-4A8E-ADCD-AC43C782350F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.EmailSend", "shared\\KSquare.EmailSend\\KSquare.EmailSend.csproj", "{BE44AC3D-AA86-4B41-93DF-50358117CF65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.EmailSend", "shared\KSquare.EmailSend\KSquare.EmailSend.csproj", "{BE44AC3D-AA86-4B41-93DF-50358117CF65}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.Notifications", "shared\\KSquare.Notifications\\KSquare.Notifications.csproj", "{11CCDA74-0658-4508-B99F-A01599B8437E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.Notifications", "shared\KSquare.Notifications\KSquare.Notifications.csproj", "{11CCDA74-0658-4508-B99F-A01599B8437E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.DocumentExtraction", "shared\\KSquare.DocumentExtraction\\KSquare.DocumentExtraction.csproj", "{3D97B828-726A-4663-8791-A8288172E731}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.DocumentExtraction", "shared\KSquare.DocumentExtraction\KSquare.DocumentExtraction.csproj", "{3D97B828-726A-4663-8791-A8288172E731}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.DocumentClassification", "shared\\KSquare.DocumentClassification\\KSquare.DocumentClassification.csproj", "{86DFBD31-4182-4D39-8750-67A346A61423}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.DocumentClassification", "shared\KSquare.DocumentClassification\KSquare.DocumentClassification.csproj", "{86DFBD31-4182-4D39-8750-67A346A61423}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.ExtractionMapper", "shared\\KSquare.ExtractionMapper\\KSquare.ExtractionMapper.csproj", "{17A68F8F-A098-4B78-B694-98ACF9A463D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.ExtractionMapper", "shared\KSquare.ExtractionMapper\KSquare.ExtractionMapper.csproj", "{17A68F8F-A098-4B78-B694-98ACF9A463D3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.RulesEngine", "shared\\KSquare.RulesEngine\\KSquare.RulesEngine.csproj", "{3365828E-3F01-4D3A-B972-3711B75237DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.RulesEngine", "shared\KSquare.RulesEngine\KSquare.RulesEngine.csproj", "{3365828E-3F01-4D3A-B972-3711B75237DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.RiskAnalysis", "shared\\KSquare.RiskAnalysis\\KSquare.RiskAnalysis.csproj", "{B8FE27E2-F170-4F07-9F03-632FCB93C75C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.RiskAnalysis", "shared\KSquare.RiskAnalysis\KSquare.RiskAnalysis.csproj", "{B8FE27E2-F170-4F07-9F03-632FCB93C75C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.FormTemplates", "shared\\KSquare.FormTemplates\\KSquare.FormTemplates.csproj", "{2AFD284D-562E-4ED8-8FA6-8D855D6E41D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.FormTemplates", "shared\KSquare.FormTemplates\KSquare.FormTemplates.csproj", "{2AFD284D-562E-4ED8-8FA6-8D855D6E41D3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.RatingAdapter", "shared\\KSquare.RatingAdapter\\KSquare.RatingAdapter.csproj", "{C3FC3FDC-D12F-49ED-9B6E-543F837ED2D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.RatingAdapter", "shared\KSquare.RatingAdapter\KSquare.RatingAdapter.csproj", "{C3FC3FDC-D12F-49ED-9B6E-543F837ED2D2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.ProposalOrchestrator", "shared\\KSquare.ProposalOrchestrator\\KSquare.ProposalOrchestrator.csproj", "{573D4D47-DEEF-44DC-B58F-4C78D397A04F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.ProposalOrchestrator", "shared\KSquare.ProposalOrchestrator\KSquare.ProposalOrchestrator.csproj", "{573D4D47-DEEF-44DC-B58F-4C78D397A04F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.PolicyAdminAdapter", "shared\\KSquare.PolicyAdminAdapter\\KSquare.PolicyAdminAdapter.csproj", "{93A288C7-7D5F-44A4-AD09-74A72E866D51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.PolicyAdminAdapter", "shared\KSquare.PolicyAdminAdapter\KSquare.PolicyAdminAdapter.csproj", "{93A288C7-7D5F-44A4-AD09-74A72E866D51}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.StateMachine", "shared\\KSquare.StateMachine\\KSquare.StateMachine.csproj", "{C20780C0-7AA7-40A7-8323-13DEB4917288}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.StateMachine", "shared\KSquare.StateMachine\KSquare.StateMachine.csproj", "{C20780C0-7AA7-40A7-8323-13DEB4917288}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.Correlation.Tests", "shared\\KSquare.Correlation.Tests\\KSquare.Correlation.Tests.csproj", "{D71732B9-4633-4344-9DBC-3B8943FA1A77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.Correlation.Tests", "shared\KSquare.Correlation.Tests\KSquare.Correlation.Tests.csproj", "{D71732B9-4633-4344-9DBC-3B8943FA1A77}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.PiiRedaction.Tests", "shared\\KSquare.PiiRedaction.Tests\\KSquare.PiiRedaction.Tests.csproj", "{475323D6-73EA-4C5C-B411-A15CC82A3E50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.PiiRedaction.Tests", "shared\KSquare.PiiRedaction.Tests\KSquare.PiiRedaction.Tests.csproj", "{475323D6-73EA-4C5C-B411-A15CC82A3E50}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.Idempotency.Tests", "shared\\KSquare.Idempotency.Tests\\KSquare.Idempotency.Tests.csproj", "{E77B9414-FEF0-4FDC-9654-4E3D8F3CE6A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.Idempotency.Tests", "shared\KSquare.Idempotency.Tests\KSquare.Idempotency.Tests.csproj", "{E77B9414-FEF0-4FDC-9654-4E3D8F3CE6A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{E4863B4C-48A3-477A-9813-A9653D6B9A3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.BlobStorage.Tests", "shared\KSquare.BlobStorage.Tests\KSquare.BlobStorage.Tests.csproj", "{52AEE78B-0DFB-4AE1-8968-907421B6F4BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.EventBus.Tests", "shared\KSquare.EventBus.Tests\KSquare.EventBus.Tests.csproj", "{2D369969-427C-4835-87D9-CB0CBFC4E9F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.AuditTrail.Tests", "shared\KSquare.AuditTrail.Tests\KSquare.AuditTrail.Tests.csproj", "{C5B62D6B-8D53-4CD3-AE1D-5C8C2AC34013}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -140,8 +148,25 @@ Global
 		{E77B9414-FEF0-4FDC-9654-4E3D8F3CE6A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E77B9414-FEF0-4FDC-9654-4E3D8F3CE6A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E77B9414-FEF0-4FDC-9654-4E3D8F3CE6A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52AEE78B-0DFB-4AE1-8968-907421B6F4BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52AEE78B-0DFB-4AE1-8968-907421B6F4BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52AEE78B-0DFB-4AE1-8968-907421B6F4BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52AEE78B-0DFB-4AE1-8968-907421B6F4BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D369969-427C-4835-87D9-CB0CBFC4E9F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D369969-427C-4835-87D9-CB0CBFC4E9F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D369969-427C-4835-87D9-CB0CBFC4E9F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D369969-427C-4835-87D9-CB0CBFC4E9F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5B62D6B-8D53-4CD3-AE1D-5C8C2AC34013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5B62D6B-8D53-4CD3-AE1D-5C8C2AC34013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5B62D6B-8D53-4CD3-AE1D-5C8C2AC34013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5B62D6B-8D53-4CD3-AE1D-5C8C2AC34013}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{52AEE78B-0DFB-4AE1-8968-907421B6F4BD} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
+		{2D369969-427C-4835-87D9-CB0CBFC4E9F1} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
+		{C5B62D6B-8D53-4CD3-AE1D-5C8C2AC34013} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 	EndGlobalSection
 EndGlobal

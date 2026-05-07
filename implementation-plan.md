@@ -523,7 +523,8 @@ An ASP.NET Core middleware intercepts HTTP requests bearing an `Idempotency-Key`
 ### KSPL-001: Blob Storage Connector
 
 **Epic**: EPIC-02  
-**Status**: TO DO  
+**Status**: DONE  
+**Done**: 2026-05-07 (5d2febc)  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/01-AZR-blob-storage-connector.md`
@@ -573,6 +574,10 @@ orchestrator (proposal artifact download), and any component that persists binar
   - `ServiceCollectionExtensions.cs`
 - `ue-uw-backend/shared/KSquare.BlobStorage.Tests/`
 
+#### Implementation Notes
+
+- Followed the spec file as source of truth (stream-based upload; typed exceptions for not-found); plan acceptance criteria mention byte-array uploads and non-exception archive behavior which are not in `doc/01-AZR-blob-storage-connector.md`.
+
 #### Ticket Correlations
 
 - KSPL-007 (EmailIngestion): attachment storage uses `IBlobStorageConnector`
@@ -584,7 +589,8 @@ orchestrator (proposal artifact download), and any component that persists binar
 ### KSPL-002: Event Bus Connector
 
 **Epic**: EPIC-02  
-**Status**: TO DO  
+**Status**: DONE  
+**Done**: 2026-05-07 (4b3437a)  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/02-AZR-event-bus-connector.md`
@@ -652,7 +658,8 @@ The `InMemoryEventBusProvider` is available for integration testing without Azur
 ### KSPL-004: Audit Trail Writer
 
 **Epic**: EPIC-02  
-**Status**: TO DO  
+**Status**: DONE  
+**Done**: 2026-05-07 (c3aacf8)  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/04-HYB-audit-trail-writer.md`
@@ -700,6 +707,10 @@ The `diff` field captures before/after state as a JSON document.
   - `PiiMaskingSerializer.cs`
   - `Migrations/001_CreateAuditTrailTable.sql`
   - `ServiceCollectionExtensions.cs`
+
+#### Implementation Notes
+
+- Integration tests require Docker SQL Server infrastructure. When SQL Server is not reachable, the integration tests return early so `dotnet test` can still run unit tests in environments without Docker.
 
 #### Ticket Correlations
 
