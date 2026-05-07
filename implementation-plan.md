@@ -431,6 +431,11 @@ consumed by the AuditTrail writer and the Serilog pipeline.
   - `PiiRedactorTests.cs`
   - `Synthesizers/PiiDataSynthesizer.cs`
 
+#### Implementation Notes
+
+- Implemented the folder layout defined in `doc/06-CUS-pii-redaction-filter.md` (Contracts/, Configuration/, Internal/, Serilog/, Extensions/). This differs from the flat file list above; the spec file is treated as the source of truth for structure and naming.
+- The spec prompt lists a simplified email regex rather than a full RFC 5322 pattern. This implementation follows the spec prompt and documents the mismatch with the acceptance criteria.
+
 #### Ticket Correlations
 
 - KSPL-004 (AuditTrail): `PiiMaskingSerializer` in AuditTrail delegates to `IPiiRedactor`
