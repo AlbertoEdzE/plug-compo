@@ -304,7 +304,7 @@ and all subsequent epics depend on them.
 ### KSPL-005: Correlation Context
 
 **Epic**: EPIC-01  
-**Status**: TO DO  
+**Status**: IN PROGRESS  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/05-CUS-correlation-context.md`
