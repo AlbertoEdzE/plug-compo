@@ -523,7 +523,8 @@ An ASP.NET Core middleware intercepts HTTP requests bearing an `Idempotency-Key`
 ### KSPL-001: Blob Storage Connector
 
 **Epic**: EPIC-02  
-**Status**: IN PROGRESS  
+**Status**: DONE  
+**Done**: 2026-05-07 (5d2febc)  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/01-AZR-blob-storage-connector.md`
@@ -572,6 +573,10 @@ orchestrator (proposal artifact download), and any component that persists binar
   - `Providers/LocalFileSystemBlobConnector.cs`
   - `ServiceCollectionExtensions.cs`
 - `ue-uw-backend/shared/KSquare.BlobStorage.Tests/`
+
+#### Implementation Notes
+
+- Followed the spec file as source of truth (stream-based upload; typed exceptions for not-found); plan acceptance criteria mention byte-array uploads and non-exception archive behavior which are not in `doc/01-AZR-blob-storage-connector.md`.
 
 #### Ticket Correlations
 
