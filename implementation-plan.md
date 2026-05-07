@@ -305,7 +305,7 @@ and all subsequent epics depend on them.
 
 **Epic**: EPIC-01  
 **Status**: DONE  
-**Done**: 2026-05-07 (c4876c1)  
+**Done**: 2026-05-07 (c632c9c)  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/05-CUS-correlation-context.md`
