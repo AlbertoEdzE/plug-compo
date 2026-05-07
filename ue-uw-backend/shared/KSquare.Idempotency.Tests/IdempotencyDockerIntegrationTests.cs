@@ -123,7 +123,7 @@ public sealed class IdempotencyDockerIntegrationTests
             }
         }
 
-        throw new Xunit.Sdk.SkipException($"SQL Server not reachable for integration tests. {last?.Message}");
+        throw new Xunit.Sdk.SkipException();
     }
 
     private static async Task EnsureSqlSchemaAsync(SqlConnection conn)
@@ -192,7 +192,7 @@ public sealed class IdempotencyDockerIntegrationTests
             }
         }
 
-        throw new Xunit.Sdk.SkipException($"Redis not reachable for integration tests. {last?.Message}");
+        throw new Xunit.Sdk.SkipException();
     }
 
     private static async Task ResetRedisAsync()
