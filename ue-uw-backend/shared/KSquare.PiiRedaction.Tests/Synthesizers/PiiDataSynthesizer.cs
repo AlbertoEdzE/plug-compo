@@ -16,6 +16,8 @@ public sealed class PiiDataSynthesizer
 
     public string Phone() => _faker.Phone.PhoneNumber();
 
+    public string PhoneWithFormat(string format) => _faker.Random.ReplaceNumbers(format);
+
     public string SsnHyphenated() => _faker.Random.ReplaceNumbers("###-##-####");
 
     public string SsnNumeric() => _faker.Random.ReplaceNumbers("#########");
