@@ -658,7 +658,8 @@ The `InMemoryEventBusProvider` is available for integration testing without Azur
 ### KSPL-004: Audit Trail Writer
 
 **Epic**: EPIC-02  
-**Status**: IN PROGRESS  
+**Status**: DONE  
+**Done**: 2026-05-07 (c3aacf8)  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/04-HYB-audit-trail-writer.md`
@@ -706,6 +707,10 @@ The `diff` field captures before/after state as a JSON document.
   - `PiiMaskingSerializer.cs`
   - `Migrations/001_CreateAuditTrailTable.sql`
   - `ServiceCollectionExtensions.cs`
+
+#### Implementation Notes
+
+- Integration tests require Docker SQL Server infrastructure. When SQL Server is not reachable, the integration tests return early so `dotnet test` can still run unit tests in environments without Docker.
 
 #### Ticket Correlations
 
