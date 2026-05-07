@@ -658,7 +658,7 @@ The `InMemoryEventBusProvider` is available for integration testing without Azur
 ### KSPL-004: Audit Trail Writer
 
 **Epic**: EPIC-02  
-**Status**: TO DO  
+**Status**: IN PROGRESS  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/04-HYB-audit-trail-writer.md`
