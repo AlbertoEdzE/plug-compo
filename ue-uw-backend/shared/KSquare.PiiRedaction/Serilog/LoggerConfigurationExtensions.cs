@@ -4,7 +4,7 @@ namespace KSquare.PiiRedaction.Serilog;
 
 public static class LoggerConfigurationExtensions
 {
-    public static global::Serilog.Configuration.LoggerDestructuringConfiguration WithKsPiiRedaction(
+    public static global::Serilog.LoggerConfiguration WithKsPiiRedaction(
         this global::Serilog.Configuration.LoggerDestructuringConfiguration destructure,
         IPiiRedactor redactor
     )
