@@ -523,7 +523,7 @@ An ASP.NET Core middleware intercepts HTTP requests bearing an `Idempotency-Key`
 ### KSPL-001: Blob Storage Connector
 
 **Epic**: EPIC-02  
-**Status**: TO DO  
+**Status**: IN PROGRESS  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/01-AZR-blob-storage-connector.md`
