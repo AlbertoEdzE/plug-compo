@@ -31,8 +31,22 @@ public sealed class RedisIdempotencyGuard(IdempotencyOptions options, IConnectio
 
         var effectiveTtl = ttl ?? options.DefaultHttpKeyTtl;
         var db = redis.GetDatabase();
+        var redisKey = $"{HttpPrefix}{key}";
+
+        if (result.StatusCode < 0)
+        {
+            await db.KeyDeleteAsync(redisKey).ConfigureAwait(false);
+            return;
+        }
+
         var json = JsonSerializer.Serialize(result);
-        await db.StringSetAsync($"{HttpPrefix}{key}", json, effectiveTtl).ConfigureAwait(false);
+        if (result.StatusCode == 0)
+        {
+            await db.StringSetAsync(redisKey, json, effectiveTtl, When.NotExists).ConfigureAwait(false);
+            return;
+        }
+
+        await db.StringSetAsync(redisKey, json, effectiveTtl).ConfigureAwait(false);
     }
 
     public async Task<bool> TryMarkProcessedAsync(string messageId, TimeSpan? ttl = null, CancellationToken ct = default)
