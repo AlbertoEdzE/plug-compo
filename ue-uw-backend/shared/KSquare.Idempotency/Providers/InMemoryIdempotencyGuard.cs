@@ -28,8 +28,20 @@ public sealed class InMemoryIdempotencyGuard(IdempotencyOptions options) : IIdem
 
     public Task SetAsync(string key, IdempotencyResult result, TimeSpan? ttl = null, CancellationToken ct = default)
     {
+        if (result.StatusCode < 0)
+        {
+            _http.TryRemove(key, out _);
+            return Task.CompletedTask;
+        }
+
         var effectiveTtl = ttl ?? options.DefaultHttpKeyTtl;
         var expiresAt = DateTimeOffset.UtcNow.Add(effectiveTtl);
+        if (result.StatusCode == 0)
+        {
+            _http.TryAdd(key, new StoredHttpResult(result, expiresAt));
+            return Task.CompletedTask;
+        }
+
         _http[key] = new StoredHttpResult(result, expiresAt);
         return Task.CompletedTask;
     }
@@ -41,20 +53,18 @@ public sealed class InMemoryIdempotencyGuard(IdempotencyOptions options) : IIdem
 
         while (true)
         {
-            if (_consumer.TryGetValue(messageId, out var existingExpiresAt))
-            {
-                if (existingExpiresAt > DateTimeOffset.UtcNow)
-                {
-                    return Task.FromResult(false);
-                }
-
-                _consumer.TryRemove(messageId, out _);
-            }
-
-            if (_consumer.TryAdd(messageId, expiresAt))
+            var existingExpiresAt = _consumer.GetOrAdd(messageId, expiresAt);
+            if (existingExpiresAt == expiresAt)
             {
                 return Task.FromResult(true);
             }
+
+            if (existingExpiresAt > DateTimeOffset.UtcNow)
+            {
+                return Task.FromResult(false);
+            }
+
+            _consumer.TryUpdate(messageId, expiresAt, existingExpiresAt);
         }
     }
 
