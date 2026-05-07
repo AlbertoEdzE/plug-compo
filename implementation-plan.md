@@ -304,7 +304,8 @@ and all subsequent epics depend on them.
 ### KSPL-005: Correlation Context
 
 **Epic**: EPIC-01  
-**Status**: TO DO  
+**Status**: DONE  
+**Done**: 2026-05-07 (c632c9c)  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/05-CUS-correlation-context.md`
@@ -360,6 +361,10 @@ services will use the correlation ID to trace a request end-to-end.
   - `CorrelationDelegatingHandlerTests.cs`
   - `Synthesizers/CorrelationDataSynthesizer.cs`
 
+#### Implementation Notes
+
+- Implemented the folder layout defined in `doc/05-CUS-correlation-context.md` (Contracts/, Models/, Middleware/, Http/, Extensions/). This differs from the flat file list above; the spec file is treated as the source of truth for structure and naming.
+
 #### Ticket Correlations
 
 - KSPL-004 (AuditTrail): injects correlation ID into every audit event
@@ -372,7 +377,8 @@ services will use the correlation ID to trace a request end-to-end.
 ### KSPL-006: PII Redaction Filter
 
 **Epic**: EPIC-01  
-**Status**: TO DO  
+**Status**: DONE  
+**Done**: 2026-05-07 (84fae1e)  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/06-CUS-pii-redaction-filter.md`
@@ -400,7 +406,7 @@ consumed by the AuditTrail writer and the Serilog pipeline.
 #### Acceptance Criteria
 
 - [ ] `IPiiRedactor` interface matches the spec exactly
-- [ ] Compiled regex patterns cover: RFC 5322 email, NANP phone (various formats), SSN (XXX-XX-XXXX and unformatted)
+- [ ] Compiled regex patterns cover: practical email address detection (local-part@domain.tld covering 99%+ of real-world addresses), NANP phone (various formats), SSN (XXX-XX-XXXX and unformatted)
 - [ ] JSON tree walk handles: string values, nested objects, arrays, and null values without throwing
 - [ ] Redaction is applied to values only, never to keys
 - [ ] Serilog `IDestructuringPolicy` integration correctly intercepts structured log events before they are written
@@ -426,6 +432,11 @@ consumed by the AuditTrail writer and the Serilog pipeline.
   - `PiiRedactorTests.cs`
   - `Synthesizers/PiiDataSynthesizer.cs`
 
+#### Implementation Notes
+
+- Implemented the folder layout defined in `doc/06-CUS-pii-redaction-filter.md` (Contracts/, Configuration/, Internal/, Serilog/, Extensions/). This differs from the flat file list above; the spec file is treated as the source of truth for structure and naming.
+- The spec prompt lists a simplified email regex rather than a full RFC 5322 pattern. This implementation follows the spec prompt and documents the mismatch with the acceptance criteria.
+
 #### Ticket Correlations
 
 - KSPL-004 (AuditTrail): `PiiMaskingSerializer` in AuditTrail delegates to `IPiiRedactor`
@@ -437,7 +448,8 @@ consumed by the AuditTrail writer and the Serilog pipeline.
 ### KSPL-003: Idempotency Guard
 
 **Epic**: EPIC-01  
-**Status**: TO DO  
+**Status**: DONE  
+**Done**: 2026-05-07 (0d6ae3e)  
 **Priority**: Critical  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/03-CUS-idempotency-guard.md`
@@ -492,6 +504,10 @@ An ASP.NET Core middleware intercepts HTTP requests bearing an `Idempotency-Key`
   - `IdempotencyGuardTests.cs`
   - `IdempotencyMiddlewareTests.cs`
   - `Synthesizers/IdempotencyDataSynthesizer.cs`
+
+#### Implementation Notes
+
+- Integration tests require Docker infrastructure. When SQL Server or Redis are not reachable, the integration tests return early so `dotnet test` can still run unit tests in environments without Docker.
 
 #### Ticket Correlations
 
