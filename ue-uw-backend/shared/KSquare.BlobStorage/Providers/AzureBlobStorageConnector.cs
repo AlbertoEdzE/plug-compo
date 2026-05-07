@@ -9,6 +9,8 @@ using KSquare.BlobStorage.Configuration;
 using KSquare.BlobStorage.Contracts;
 using KSquare.BlobStorage.Exceptions;
 using KSquare.BlobStorage.Models;
+using BlobDownloadResult = KSquare.BlobStorage.Models.BlobDownloadResult;
+using BlobSasPermissions = KSquare.BlobStorage.Models.BlobSasPermissions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
