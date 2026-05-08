@@ -1,0 +1,4 @@
+Submission Status Update
+Dear {{ BrokerName }},
+Submission {{ SubmissionNumber }} status changed from {{ OldStatus }} to {{ NewStatus }}.
+Portal: {{ PortalUrl }}
