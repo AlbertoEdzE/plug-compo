@@ -786,7 +786,8 @@ retry is applied on HTTP 429 and 503. Delivery tracking is persisted to SQL.
 ### KSPL-007: Email Ingestion Connector
 
 **Epic**: EPIC-03  
-**Status**: IN PROGRESS  
+**Status**: DONE  
+**Done**: 2026-05-08 (f62f2ea)  
 **Priority**: High  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/07-EXT-email-ingestion-connector.md`
@@ -828,11 +829,22 @@ Event Bus for downstream processing by the AI triage layer.
 #### Expected Outputs
 
 - `ue-uw-backend/shared/KSquare.EmailIngestion/`
+  - `Configuration/EmailIngestionOptions.cs`
   - `Contracts/IEmailIngestionConnector.cs`, `IEmailParser.cs`, `IEmailDuplicateDetector.cs`, `IEmailAttachmentStore.cs`
-  - `Models/ParsedEmail.cs`, `EmailReceivedEvent.cs`
-  - `GraphMailboxPoller.cs` (IHostedService)
-  - `MimeKitEmailParser.cs`
-  - `ServiceCollectionExtensions.cs`
+  - `Models/EmailMessage.cs`, `EmailAttachment.cs`, `EmailFingerprint.cs`, `EmailReceivedEvent.cs`, `EmailIngestionBatchResult.cs`
+  - `HostedService/EmailIngestionHostedService.cs`
+  - `Providers/MicrosoftGraph/GraphEmailSource.cs`, `GraphEmailMover.cs`
+  - `Internal/MimeEmailParser.cs`, `EmailIngestionConnector.cs`, `BlobAttachmentStore.cs`, `IdempotencyDuplicateDetector.cs`, `IntentHintDetector.cs`
+  - `Extensions/ServiceCollectionExtensions.cs`
+- `ue-uw-backend/shared/KSquare.EmailIngestion.Tests/`
+
+#### Implementation Notes
+
+- Followed `doc/07-EXT-email-ingestion-connector.md` for the public contracts and the processing flow; the acceptance criteria in this plan section (e.g., `DefaultAzureCredential`, WireMock-based Graph stubbing, and the fingerprint inputs) diverge from the spec file and were not used as the source of truth.
+- Implemented duplicate detection using KSPL-003 `IIdempotencyGuard` with TTL (windowed fingerprint) instead of a SQL-backed `email_fingerprints` table.
+- Implemented Microsoft Graph auth using `ClientSecretCredential` (app-only `.default` scope) rather than `DefaultAzureCredential`.
+- Implemented attachment/raw storage using a configurable path template (default `incoming/{year}/{month}/{day}/{correlationId}/{fileName}`) and publishes `email.received`; added failure events `email.parse_failed` and `email.attachment_oversized` per spec.
+- Tests validate MIME parsing, dedup behavior, and orchestration (store blobs + publish event + move message) using fakes for the email source/mover and LocalFileSystem blob storage; no real Graph API calls are made.
 
 #### Ticket Correlations
 
