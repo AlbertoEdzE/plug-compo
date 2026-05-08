@@ -856,7 +856,8 @@ Event Bus for downstream processing by the AI triage layer.
 ### KSPL-009: Notification Dispatcher
 
 **Epic**: EPIC-03  
-**Status**: TO DO  
+**Status**: DONE  
+**Done**: 2026-05-08 (bda2c29)  
 **Priority**: High  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/09-CUS-notification-dispatcher.md`
@@ -897,10 +898,19 @@ configurable window. In-app notifications are persisted to a SQL table.
 
 - `ue-uw-backend/shared/KSquare.Notifications/`
   - `Contracts/INotificationDispatcher.cs`, `INotificationChannel.cs`
-  - `Models/NotificationRequest.cs`, `InAppNotification.cs`
+  - `Models/NotificationRequest.cs`, `NotificationRecipient.cs`, `NotificationPriority.cs`, `InAppNotification.cs`
   - `Channels/EmailNotificationChannel.cs`, `InAppNotificationChannel.cs`
-  - `Migrations/001_CreateNotificationsTable.sql`
-  - `ServiceCollectionExtensions.cs`
+  - `Database/NotificationDbContext.cs`, `InAppNotificationRecord.cs`, `NotificationDedupRecord.cs`
+  - `Internal/DedupService.cs`, `NotificationDispatcher.cs`
+  - `Migrations/001_CreateNotificationsTables.sql`
+  - `Extensions/ServiceCollectionExtensions.cs`
+- `ue-uw-backend/shared/KSquare.Notifications.Tests/`
+
+#### Implementation Notes
+
+- Followed `doc/09-CUS-notification-dispatcher.md` as the source of truth. This plan section’s acceptance criteria (e.g., concurrent channel dispatch, builder-style registration, and an alternate dedup key definition) diverge from the spec file and were not used.
+- Implemented SQL schema as a migration SQL script (matching the repo’s existing pattern) and used EF Core (SqlServer / InMemory provider) for persistence and tests.
+- Implemented Email and In-App channels; SMS and Teams are explicitly not implemented (future channels) and will throw if enabled in options.
 
 #### Ticket Correlations
 
