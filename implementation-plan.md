@@ -1525,7 +1525,7 @@ manages the polling lifecycle.
 ### KSPL-020: Policy Admin Adapter
 
 **Epic**: EPIC-07  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, f144074)  
 **Priority**: High  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/20-CUS-policy-admin-adapter.md`
