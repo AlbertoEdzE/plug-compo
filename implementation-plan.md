@@ -725,7 +725,8 @@ The `diff` field captures before/after state as a JSON document.
 ### KSPL-008: Email Send Adapter
 
 **Epic**: EPIC-03  
-**Status**: IN PROGRESS  
+**Status**: DONE  
+**Done**: 2026-05-08 (75f7a48)  
 **Priority**: High  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/08-EXT-email-send-adapter.md`
@@ -769,6 +770,10 @@ retry is applied on HTTP 429 and 503. Delivery tracking is persisted to SQL.
   - `Providers/SendGridEmailSender.cs`, `SmtpEmailSender.cs`
   - `Templates/FluidTemplateRenderer.cs`
   - `ServiceCollectionExtensions.cs`
+
+#### Implementation Notes
+
+- Implemented templating and tests per `doc/08-EXT-email-send-adapter.md` (InMemory provider + embedded resource templates). The acceptance criteria above mention WireMock-based retry simulation; this is not required by the spec file and was not implemented.
 
 #### Ticket Correlations
 
