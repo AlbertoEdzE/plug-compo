@@ -89,8 +89,8 @@ public sealed class AuditTrailWriterTests
 
         entry.Before.Should().NotContain(email);
         entry.After.Should().NotContain(email);
-        entry.Before.Should().Contain("***REDACTED***");
-        entry.After.Should().Contain("***REDACTED***");
+        entry.Before.Should().Contain("[REDACTED]");
+        entry.After.Should().Contain("[REDACTED]");
     }
 
     [Fact]
@@ -120,7 +120,7 @@ public sealed class AuditTrailWriterTests
         var entry = results.Should().ContainSingle().Subject;
 
         entry.Before.Should().NotContain(email);
-        entry.Before.Should().Contain("***REDACTED***");
+        entry.Before.Should().Contain("[REDACTED]");
     }
 
     [Fact]

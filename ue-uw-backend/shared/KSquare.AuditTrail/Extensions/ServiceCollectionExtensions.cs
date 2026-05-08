@@ -25,7 +25,7 @@ public static class ServiceCollectionExtensions
             services.AddKsPiiRedaction(pii =>
             {
                 pii.PiiFieldNames = options.PiiFieldNames.ToList();
-                pii.RedactionToken = "***REDACTED***";
+                pii.RedactionToken = "[REDACTED]";
             });
         }
         else

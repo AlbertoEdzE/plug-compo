@@ -3,9 +3,10 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "YourStrong!Passw0rd"
+      MSSQL_SA_PASSWORD: "LocalDev_SA_Password123!"
     ports:
       - "1433:1433"
+      - "14333:1433"
     healthcheck:
       test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-C", "-S", "localhost", "-U", "sa", "-P", "YourStrong!Passw0rd", "-Q", "SELECT 1"]
       interval: 10s
@@ -16,6 +17,7 @@ services:
     image: redis:7-alpine
     ports:
       - "6379:6379"
+      - "16379:6379"
 
   azurite:
     image: mcr.microsoft.com/azure-storage/azurite

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../../ue-uw-backend/shared/KSquare.Correlation/KSquare.Correlation.csproj" />
+    <ProjectReference Include="../../../ue-uw-backend/shared/KSquare.PiiRedaction/KSquare.PiiRedaction.csproj" />
+    <ProjectReference Include="../../../ue-uw-backend/shared/KSquare.AuditTrail/KSquare.AuditTrail.csproj" />
+    <ProjectReference Include="../../../ue-uw-backend/shared/KSquare.EventBus/KSquare.EventBus.csproj" />
+    <ProjectReference Include="../../../ue-uw-backend/shared/KSquare.Idempotency/KSquare.Idempotency.csproj" />
+    <ProjectReference Include="../../../ue-uw-backend/shared/KSquare.BlobStorage/KSquare.BlobStorage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+</Project>
