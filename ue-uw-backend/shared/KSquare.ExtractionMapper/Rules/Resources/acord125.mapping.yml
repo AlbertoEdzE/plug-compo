@@ -1,0 +1,38 @@
+document_type: ACORD125
+version: "1.0"
+rules:
+  - rule_id: R001
+    canonical_field: InsuredName
+    source_fields: ["NamedInsured", "named_insured", "Insured Name", "InsuredName"]
+    target_type: string
+    transform: Trim
+    required: true
+
+  - rule_id: R002
+    canonical_field: PolicyEffectiveDate
+    source_fields: ["EffectiveDate", "effective_date", "Policy Effective Date"]
+    target_type: date
+    transform: "ParseDate:MM/dd/yyyy"
+    required: true
+
+  - rule_id: R003
+    canonical_field: TotalInsuredValue
+    source_fields: ["TIV", "Total Insured Value", "TotalInsuredValue"]
+    target_type: decimal
+    transform: ParseDecimal
+    required: false
+
+  - rule_id: R004
+    canonical_field: NumberOfLocations
+    source_fields: ["NumberOfLocations", "Locations", "Num Locations"]
+    target_type: int
+    default_value: "1"
+    required: false
+
+  - rule_id: R005
+    canonical_field: BrokerName
+    source_fields: ["BrokerName", "AgentName", "ProducerName"]
+    target_type: string
+    transform: Trim
+    required: false
+

@@ -1,0 +1,38 @@
+document_type: LOSSRUN
+version: "1.0"
+rules:
+  - rule_id: LR001
+    canonical_field: InsuredName
+    source_fields: ["Insured", "NamedInsured", "insured_name"]
+    target_type: string
+    transform: Trim
+    required: true
+
+  - rule_id: LR002
+    canonical_field: CarrierName
+    source_fields: ["Carrier", "InsuranceCarrier", "carrier_name"]
+    target_type: string
+    transform: Trim
+    required: false
+
+  - rule_id: LR003
+    canonical_field: PolicyNumber
+    source_fields: ["PolicyNumber", "policy_number", "Policy No"]
+    target_type: string
+    transform: Trim
+    required: false
+
+  - rule_id: LR004
+    canonical_field: LossRunStartDate
+    source_fields: ["FromDate", "LossRunStart", "loss_run_start"]
+    target_type: date
+    transform: "ParseDate:MM/dd/yyyy"
+    required: false
+
+  - rule_id: LR005
+    canonical_field: LossRunEndDate
+    source_fields: ["ToDate", "LossRunEnd", "loss_run_end"]
+    target_type: date
+    transform: "ParseDate:MM/dd/yyyy"
+    required: false
+

@@ -1,0 +1,38 @@
+document_type: FINANCIAL
+version: "1.0"
+rules:
+  - rule_id: F001
+    canonical_field: CompanyName
+    source_fields: ["CompanyName", "company_name", "LegalName"]
+    target_type: string
+    transform: Trim
+    required: true
+
+  - rule_id: F002
+    canonical_field: FiscalYearEndDate
+    source_fields: ["FiscalYearEnd", "FYEnd", "fiscal_year_end"]
+    target_type: date
+    transform: "ParseDate:MM/dd/yyyy"
+    required: false
+
+  - rule_id: F003
+    canonical_field: TotalAssets
+    source_fields: ["TotalAssets", "total_assets", "AssetsTotal"]
+    target_type: decimal
+    transform: ParseDecimal
+    required: false
+
+  - rule_id: F004
+    canonical_field: TotalLiabilities
+    source_fields: ["TotalLiabilities", "total_liabilities", "LiabilitiesTotal"]
+    target_type: decimal
+    transform: ParseDecimal
+    required: false
+
+  - rule_id: F005
+    canonical_field: NetIncome
+    source_fields: ["NetIncome", "net_income", "Net Profit"]
+    target_type: decimal
+    transform: ParseDecimal
+    required: false
+
