@@ -1696,7 +1696,7 @@ classification for testing without LLM calls.
 ### KSPL-023: Intelligent Prefill Engine
 
 **Epic**: EPIC-08  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, c8fbd7e)  
 **Priority**: Medium  
 **Language**: Python 3.11 (Azure Function) + C# HTTP wrapper  
 **Spec Reference**: `doc/23-HYB-intelligent-prefill-engine.md`
