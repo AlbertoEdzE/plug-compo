@@ -1815,7 +1815,7 @@ section title. Errors return an empty `narrative_text` without throwing.
 ### KSPL-025: Agentic Action Toolkit
 
 **Epic**: EPIC-08  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, b366af1)  
 **Priority**: Medium  
 **Language**: Python 3.11  
 **Spec Reference**: `doc/25-HYB-agentic-action-toolkit.md`
