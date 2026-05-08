@@ -1755,7 +1755,7 @@ return immediately without an LLM call.
 ### KSPL-024: Document Narrative Engine
 
 **Epic**: EPIC-08  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, fc9c4e5)  
 **Priority**: Medium  
 **Language**: Python 3.11 (Azure Function) + C# HTTP wrapper  
 **Spec Reference**: `doc/24-HYB-document-narrative-engine.md`
