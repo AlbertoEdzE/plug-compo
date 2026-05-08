@@ -4,4 +4,22 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\\KSquare.BlobStorage\\KSquare.BlobStorage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.8" />
+    <PackageReference Include="YamlDotNet" Version="13.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\\rules\\*.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="KSquare.RulesEngine.Tests" />
+  </ItemGroup>
 </Project>
