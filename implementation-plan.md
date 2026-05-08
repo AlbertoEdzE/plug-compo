@@ -924,7 +924,8 @@ configurable window. In-app notifications are persisted to a SQL table.
 ### KSPL-010: Document Extraction Adapter
 
 **Epic**: EPIC-04  
-**Status**: TO DO  
+**Status**: DONE  
+**Done**: 2026-05-08 (87855d5)  
 **Priority**: High  
 **Language**: Python 3.11 (Azure Function) + C# HTTP wrapper  
 **Spec Reference**: `doc/10-AZR-document-extraction-adapter.md`
@@ -965,14 +966,22 @@ to `ExtractionResult`.
 #### Expected Outputs
 
 - `ue-uw-backend/shared-python/ksquare-document-extraction/`
-  - `function_app.py`, `contracts.py`, `options.py`
-  - `providers/azure_document_extractor.py`
-  - `tests/test_azure_document_extractor.py`
-  - `tests/synthesizers/document_synthesizer.py`
-  - `requirements.txt`
+  - `function_app.py`, `requirements.txt`, `pyproject.toml`
+  - `ksquare/document_extraction/` (contracts, models, config, routing, providers)
+  - `tests/` (fixtures + unit tests)
 - `ue-uw-backend/shared/KSquare.DocumentExtraction/`
-  - `Contracts/IDocumentExtractionAdapter.cs`
-  - `FunctionHttpDocumentExtractor.cs`
+  - `Contracts/IDocumentExtractor.cs`
+  - `Configuration/DocumentExtractionOptions.cs`
+  - `Models/` (DocumentInput, ExtractionResult, etc.)
+  - `Providers/FunctionHttpDocumentExtractor.cs`, `MockDocumentExtractor.cs`
+  - `Extensions/ServiceCollectionExtensions.cs`
+- `ue-uw-backend/shared/KSquare.DocumentExtraction.Tests/`
+
+#### Implementation Notes
+
+- Implemented confidence routing in both layers: if any field confidence < 0.75 → `PendingReview`; if no fields/tables → `Failed`.
+- Python tests avoid live Azure calls by validating routing/model behavior and confidence routing deterministically; the spec’s mention of `respx` for Azure SDK calls is not directly compatible with the Azure SDK transport and was not used to intercept SDK traffic.
+- C# HTTP wrapper tests stub the function endpoint using a deterministic in-process `HttpMessageHandler` rather than WireMock.Net (not otherwise used in this repository).
 
 #### Ticket Correlations
 
