@@ -2052,7 +2052,7 @@ The scenario flow:
 ### KSPL-028: Canvas 2 — Communication Layer
 
 **Epic**: EPIC-09  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, a3abfa1)  
 **Priority**: High  
 **Language**: Python 3.11  
 **Spec Reference**: `doc/08-EXT-email-send-adapter.md`, `doc/07-EXT-email-ingestion-connector.md`, `doc/09-CUS-notification-dispatcher.md`
