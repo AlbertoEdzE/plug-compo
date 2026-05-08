@@ -82,6 +82,11 @@ public sealed class StatelessStateMachineFactory(
                 continue;
             }
 
+            foreach (var trigger in kvp.Value.ReentryPermits)
+            {
+                cfg.PermitReentry(trigger);
+            }
+
             foreach (var permit in kvp.Value.Permits)
             {
                 cfg.Permit(permit.Key, permit.Value);

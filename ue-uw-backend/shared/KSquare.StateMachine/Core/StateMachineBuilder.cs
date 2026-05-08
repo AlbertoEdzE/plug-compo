@@ -37,6 +37,12 @@ public sealed class StateConfigurationBuilder<TState, TTrigger>
         return this;
     }
 
+    public StateConfigurationBuilder<TState, TTrigger> PermitReentry(TTrigger trigger)
+    {
+        _spec.ReentryPermits.Add(trigger);
+        return this;
+    }
+
     public void IsTerminal()
     {
         _spec.IsTerminal = true;
@@ -49,6 +55,7 @@ internal sealed class StateSpec<TState, TTrigger>
 {
     public TState State { get; }
     public Dictionary<TTrigger, TState> Permits { get; } = new();
+    public HashSet<TTrigger> ReentryPermits { get; } = new();
     public bool IsTerminal { get; set; }
 
     public StateSpec(TState state)
@@ -56,4 +63,3 @@ internal sealed class StateSpec<TState, TTrigger>
         State = state;
     }
 }
-

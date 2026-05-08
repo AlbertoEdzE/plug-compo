@@ -48,6 +48,7 @@ public sealed class QuoteStateMachineDefinition : IStateMachineDefinition<QuoteS
             .Permit(QuoteTrigger.Void, QuoteState.Voided);
 
         builder.State(QuoteState.Presented)
+            .PermitReentry(QuoteTrigger.Present)
             .Permit(QuoteTrigger.Accept, QuoteState.Accepted)
             .Permit(QuoteTrigger.Expire, QuoteState.Expired)
             .Permit(QuoteTrigger.Void, QuoteState.Voided);
@@ -57,4 +58,3 @@ public sealed class QuoteStateMachineDefinition : IStateMachineDefinition<QuoteS
         builder.State(QuoteState.Voided).IsTerminal();
     }
 }
-

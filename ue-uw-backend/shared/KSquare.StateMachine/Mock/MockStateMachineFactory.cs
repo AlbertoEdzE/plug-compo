@@ -49,6 +49,11 @@ public sealed class MockStateMachineFactory(IServiceProvider serviceProvider) : 
                 continue;
             }
 
+            foreach (var trigger in kvp.Value.ReentryPermits)
+            {
+                cfg.PermitReentry(trigger);
+            }
+
             foreach (var permit in kvp.Value.Permits)
             {
                 cfg.Permit(permit.Key, permit.Value);
@@ -89,4 +94,3 @@ internal sealed class MockEntityStateMachine<TState, TTrigger>(
         return Task.CompletedTask;
     }
 }
-
