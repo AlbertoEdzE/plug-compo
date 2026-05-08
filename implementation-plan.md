@@ -1991,7 +1991,7 @@ lab/
 ### KSPL-027: Canvas 1 — Cross-Cutting and Platform Infrastructure
 
 **Epic**: EPIC-09  
-**Status**: DONE (2026-05-08, 95e02d7)  
+**Status**: DONE (2026-05-08, aabdd83)  
 **Priority**: Critical  
 **Language**: Python 3.11 (orchestrates C# components via subprocess / HTTP)  
 **Spec Reference**: `doc/05-CUS-correlation-context.md`, `doc/06-CUS-pii-redaction-filter.md`, `doc/03-CUS-idempotency-guard.md`, `doc/01-AZR-blob-storage-connector.md`, `doc/02-AZR-event-bus-connector.md`, `doc/04-HYB-audit-trail-writer.md`
