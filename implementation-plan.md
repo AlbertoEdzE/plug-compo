@@ -1469,7 +1469,7 @@ formulas for testing without the external API.
 ### KSPL-019: Proposal Orchestrator
 
 **Epic**: EPIC-07  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, c2973f7)  
 **Priority**: High  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/19-EXT-proposal-orchestrator.md`
