@@ -2108,7 +2108,7 @@ The additional scenario flow (after Canvas 1 passes):
 ### KSPL-029: Canvas 3 — Document Intelligence and Rules
 
 **Epic**: EPIC-09  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, e024ef7)  
 **Priority**: High  
 **Language**: Python 3.11  
 **Spec Reference**: `doc/10-AZR-document-extraction-adapter.md`, `doc/11-AZR-document-classification-adapter.md`, `doc/12-CUS-extraction-result-mapper.md`, `doc/14-CUS-rules-engine-nrules.md`, `doc/16-CUS-risk-analysis-engine.md`, `doc/15-EXT-form-template-engine.md`
