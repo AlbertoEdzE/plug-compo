@@ -1579,7 +1579,7 @@ on failure.
 ### KSPL-021: State Machine
 
 **Epic**: EPIC-07  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, 72c9281)  
 **Priority**: High  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/21-CUS-state-machine.md`
