@@ -1,0 +1,9 @@
+{
+  "document_type": "ACORD125",
+  "confidence": 0.92,
+  "method": "AzureDocumentClassifier",
+  "alternative_candidates": [
+    { "document_type": "ACORD126", "confidence": 0.12 }
+  ],
+  "correlation_id": "fixture-corr"
+}
