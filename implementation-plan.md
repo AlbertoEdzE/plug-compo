@@ -1179,7 +1179,7 @@ startup from YAML files.
 ### KSPL-016: Risk Analysis Engine
 
 **Epic**: EPIC-05  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, c8f8dbe)  
 **Priority**: High  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/16-CUS-risk-analysis-engine.md`
