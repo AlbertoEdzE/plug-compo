@@ -786,7 +786,7 @@ retry is applied on HTTP 429 and 503. Delivery tracking is persisted to SQL.
 ### KSPL-007: Email Ingestion Connector
 
 **Epic**: EPIC-03  
-**Status**: TO DO  
+**Status**: IN PROGRESS  
 **Priority**: High  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/07-EXT-email-ingestion-connector.md`
