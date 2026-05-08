@@ -60,6 +60,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.EmailIngestion.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.Notifications.Tests", "shared\KSquare.Notifications.Tests\KSquare.Notifications.Tests.csproj", "{8DE69E57-B13C-47D4-865A-1106D20E2B2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.DocumentExtraction.Tests", "shared\KSquare.DocumentExtraction.Tests\KSquare.DocumentExtraction.Tests.csproj", "{D79C4E12-1227-4248-941C-88826CA1946B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -178,6 +180,10 @@ Global
 		{8DE69E57-B13C-47D4-865A-1106D20E2B2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DE69E57-B13C-47D4-865A-1106D20E2B2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DE69E57-B13C-47D4-865A-1106D20E2B2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D79C4E12-1227-4248-941C-88826CA1946B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D79C4E12-1227-4248-941C-88826CA1946B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D79C4E12-1227-4248-941C-88826CA1946B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D79C4E12-1227-4248-941C-88826CA1946B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -189,5 +195,6 @@ Global
 		{2659F299-C169-4336-AD1D-0FFE9BF8FE25} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 		{35519EF2-4FDA-4CAA-A6A2-9D913E6FBF5E} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 		{8DE69E57-B13C-47D4-865A-1106D20E2B2B} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
+		{D79C4E12-1227-4248-941C-88826CA1946B} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 	EndGlobalSection
 EndGlobal

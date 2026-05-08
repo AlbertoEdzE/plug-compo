@@ -1,0 +1,28 @@
+{
+  "document_id": "fixture-doc",
+  "provider_operation_id": "fixture-op",
+  "status": "Succeeded",
+  "fields": [
+    {
+      "name": "insured_name",
+      "value": "Acme Inc",
+      "confidence": 0.95,
+      "bounding_box": { "x": 0.1, "y": 0.2, "width": 0.3, "height": 0.05, "page": 1 },
+      "page_number": 1
+    },
+    {
+      "name": "policy_effective_date",
+      "value": "2026-01-01",
+      "confidence": 0.92,
+      "bounding_box": null,
+      "page_number": 1
+    }
+  ],
+  "tables": [],
+  "pages": [{ "page_number": 1, "width": 1000, "height": 1400, "unit": "pixel" }],
+  "detected_document_type": "ACORD125",
+  "overall_confidence": 0.935,
+  "model_used": "prebuilt-document",
+  "correlation_id": "fixture-corr",
+  "metadata": {}
+}
