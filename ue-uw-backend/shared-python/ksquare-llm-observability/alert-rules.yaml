@@ -1,0 +1,40 @@
+alerts:
+  - name: LLM_HighLatency_P95
+    description: "AG UI P95 latency exceeded 8 seconds"
+    metric: gen_ai.latency_ms
+    aggregation: percentile_95
+    threshold: 8000
+    window: 5m
+    severity: 2
+
+  - name: LLM_DailyCostExceeded
+    description: "Daily LLM cost exceeded $200"
+    metric: gen_ai.cost.usd
+    aggregation: sum
+    threshold: 200
+    window: 1d
+    severity: 1
+
+  - name: LLM_GroundednessRegression
+    description: "Average groundedness score dropped below 0.70"
+    metric: gen_ai.eval.groundedness
+    aggregation: avg
+    threshold: 0.70
+    window: 1h
+    direction: below
+    severity: 2
+
+  - name: LLM_HighSafetyBlockRate
+    description: "Safety block rate exceeded 10%"
+    metric: gen_ai.safety.blocked
+    comparison_metric: gen_ai.requests.total
+    threshold_ratio: 0.10
+    window: 1h
+    severity: 2
+
+  - name: LLM_EvaluationRegression
+    description: "RAGAS evaluation detected regression (any metric dropped > 0.05)"
+    source: evaluation_runs table
+    trigger: has_regression = true
+    severity: 1
+    notify: ai-engineer@company.com, uw-platform@company.com
