@@ -1636,7 +1636,7 @@ concurrent updates via a version column.
 ### KSPL-022: AI Email Triage Adapter
 
 **Epic**: EPIC-08  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, 47f221b)  
 **Priority**: Medium  
 **Language**: Python 3.11 (Azure Function) + C# HTTP wrapper  
 **Spec Reference**: `doc/22-HYB-ai-email-triage.md`
