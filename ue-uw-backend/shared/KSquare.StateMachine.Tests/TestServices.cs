@@ -1,14 +1,20 @@
+using System.Collections.Concurrent;
+using KSquare.AuditTrail.Configuration;
 using KSquare.AuditTrail.Contracts;
+using KSquare.AuditTrail.Extensions;
+using KSquare.EventBus.Configuration;
 using KSquare.EventBus.Contracts;
+using KSquare.EventBus.Extensions;
+using KSquare.EventBus.Models;
 using KSquare.StateMachine.Configuration;
 using KSquare.StateMachine.Contracts;
 using KSquare.StateMachine.Core;
 using KSquare.StateMachine.Database;
 using KSquare.StateMachine.Definitions;
+using KSquare.StateMachine.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 
 namespace KSquare.StateMachine.Tests;
 
@@ -35,13 +41,20 @@ internal static class TestServices
             db.UseInMemoryDatabase("kspl-state-machine", dbRoot);
         });
 
-        var audit = new Mock<IAuditTrailWriter>();
-        services.AddSingleton(audit);
-        services.AddSingleton(audit.Object);
+        services.AddKsAuditTrail(audit =>
+        {
+            audit.Provider = AuditProvider.InMemory;
+            audit.ServiceName = "kspl-state-machine-tests";
+        });
 
-        var publisher = new Mock<IEventPublisher>();
-        services.AddSingleton(publisher);
-        services.AddSingleton(publisher.Object);
+        services.AddKsEventBus(bus =>
+        {
+            bus.Provider = EventBusProvider.InMemory;
+            bus.UseOutbox = false;
+        });
+
+        services.AddSingleton(new ConcurrentQueue<StateTransitionedEvent>());
+        services.AddConsumer<StateTransitionedEvent, CapturingConsumer>(options.TransitionEventTopic, "test-sub");
 
         services.AddScoped<IStateMachineFactory, StatelessStateMachineFactory>();
 
@@ -51,5 +64,14 @@ internal static class TestServices
 
         return services.BuildServiceProvider();
     }
-}
 
+    private sealed class CapturingConsumer(ConcurrentQueue<StateTransitionedEvent> queue) : IEventConsumer<StateTransitionedEvent>
+    {
+        public Task ConsumeAsync(EventContext<StateTransitionedEvent> context, CancellationToken ct = default)
+        {
+            _ = ct;
+            queue.Enqueue(context.Payload);
+            return Task.CompletedTask;
+        }
+    }
+}

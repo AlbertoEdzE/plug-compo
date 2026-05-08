@@ -1,6 +1,7 @@
+using System.Collections.Concurrent;
 using FluentAssertions;
 using KSquare.AuditTrail.Contracts;
-using KSquare.EventBus.Contracts;
+using KSquare.AuditTrail.Models;
 using KSquare.StateMachine.Contracts;
 using KSquare.StateMachine.Database;
 using KSquare.StateMachine.Definitions;
@@ -9,7 +10,6 @@ using KSquare.StateMachine.Tests.Synthesizers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 
 namespace KSquare.StateMachine.Tests;
 
@@ -74,24 +74,18 @@ public sealed class SubmissionStateMachineTests
         var sp = TestServices.Build(dbRoot);
         using var scope = sp.CreateScope();
 
-        var auditMock = scope.ServiceProvider.GetRequiredService<Mock<IAuditTrailWriter>>();
+        var audit = scope.ServiceProvider.GetRequiredService<IAuditTrailWriter>();
         var factory = scope.ServiceProvider.GetRequiredService<IStateMachineFactory>();
         var machine = await factory.LoadAsync<SubmissionState, SubmissionTrigger>("Submission", "sub-4", SubmissionState.Draft);
 
         var ctx = new StateMachineContextSynthesizer(seed: 4).Context();
         await machine.FireAsync(SubmissionTrigger.Submit, ctx);
 
-        auditMock.Verify(a => a.WriteAsync(
-            It.Is<KSquare.AuditTrail.Models.AuditEntry>(e =>
-                e.ResourceType == "Submission" &&
-                e.ResourceId == "sub-4" &&
-                e.Action == "StateTransition" &&
-                e.Before == "Draft" &&
-                e.After == "Submitted" &&
-                e.Actor.UserId == ctx.ActorId
-            ),
-            It.IsAny<CancellationToken>()
-        ), Times.Once);
+        var entries = await CollectAsync(audit.QueryAsync(new AuditQuery(ResourceType: "Submission", ResourceId: "sub-4", Action: "StateTransition")));
+        var entry = entries.Should().ContainSingle().Subject;
+        entry.Before.Should().Be("Draft");
+        entry.After.Should().Be("Submitted");
+        entry.Actor.UserId.Should().Be(ctx.ActorId);
     }
 
     [Fact]
@@ -101,26 +95,20 @@ public sealed class SubmissionStateMachineTests
         var sp = TestServices.Build(dbRoot);
         using var scope = sp.CreateScope();
 
-        var publisherMock = scope.ServiceProvider.GetRequiredService<Mock<IEventPublisher>>();
+        var queue = scope.ServiceProvider.GetRequiredService<ConcurrentQueue<StateTransitionedEvent>>();
         var factory = scope.ServiceProvider.GetRequiredService<IStateMachineFactory>();
         var machine = await factory.LoadAsync<SubmissionState, SubmissionTrigger>("Submission", "sub-5", SubmissionState.Draft);
 
         var ctx = new StateMachineContextSynthesizer(seed: 5).Context();
         await machine.FireAsync(SubmissionTrigger.Submit, ctx);
 
-        publisherMock.Verify(p => p.PublishAsync(
-            "state-transitions",
-            nameof(StateTransitionedEvent),
-            It.Is<StateTransitionedEvent>(e =>
-                e.EntityType == "Submission" &&
-                e.EntityId == "sub-5" &&
-                e.FromState == "Draft" &&
-                e.ToState == "Submitted" &&
-                e.Trigger == nameof(SubmissionTrigger.Submit)
-            ),
-            It.IsAny<KSquare.EventBus.Models.EventPublishOptions?>(),
-            It.IsAny<CancellationToken>()
-        ), Times.Once);
+        queue.ToArray().Should().ContainSingle(e =>
+            e.EntityType == "Submission" &&
+            e.EntityId == "sub-5" &&
+            e.FromState == "Draft" &&
+            e.ToState == "Submitted" &&
+            e.Trigger == nameof(SubmissionTrigger.Submit)
+        );
     }
 
     [Fact]
@@ -151,5 +139,15 @@ public sealed class SubmissionStateMachineTests
             machine2.CurrentState.Should().Be(SubmissionState.Submitted);
         }
     }
-}
 
+    private static async Task<List<KSquare.AuditTrail.Models.AuditEntry>> CollectAsync(IAsyncEnumerable<KSquare.AuditTrail.Models.AuditEntry> source)
+    {
+        var list = new List<KSquare.AuditTrail.Models.AuditEntry>();
+        await foreach (var item in source)
+        {
+            list.Add(item);
+        }
+
+        return list;
+    }
+}
