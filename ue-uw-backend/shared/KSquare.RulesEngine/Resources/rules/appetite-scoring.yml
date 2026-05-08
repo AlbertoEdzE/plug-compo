@@ -1,0 +1,39 @@
+name: appetite-scoring
+version: "1.0"
+rules:
+  - rule_name: OutOfAppetiteNaics
+    priority: 200
+    condition: "context.OutOfAppetiteNaicsCodes.Contains(context.NaicsCode)"
+    action: Decline
+    reason: NAICS code is outside current underwriting appetite
+
+  - rule_name: IntercollFBOver25Pct
+    priority: 190
+    condition: "context.IntercollegiateFootballRevenuePercent > 0.25"
+    action: Decline
+    reason: More than 25% of revenue from intercollegiate football
+
+  - rule_name: HighTivHighLossRatioDecline
+    priority: 180
+    condition: "context.TotalInsuredValue > 50000000 && context.FiveYearAverageLossRatio > 0.80"
+    action: Decline
+    reason: High TIV combined with high loss ratio
+
+  - rule_name: ExcessiveLossRatioModifier
+    priority: 100
+    condition: "context.FiveYearAverageLossRatio > 0.85"
+    action: "Modifier:0.70"
+    reason: Five-year average loss ratio exceeds 85%
+
+  - rule_name: HighLossRatioModifier
+    priority: 90
+    condition: "context.FiveYearAverageLossRatio > 0.65"
+    action: "Modifier:0.85"
+    reason: Five-year average loss ratio exceeds 65%
+
+  - rule_name: LowLossRatioBonus
+    priority: 10
+    condition: "context.FiveYearAverageLossRatio < 0.30"
+    action: "Modifier:1.05"
+    reason: Five-year average loss ratio is below 30%
+
