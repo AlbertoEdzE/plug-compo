@@ -994,7 +994,8 @@ to `ExtractionResult`.
 ### KSPL-011: Document Classification Adapter
 
 **Epic**: EPIC-04  
-**Status**: TO DO  
+**Status**: DONE  
+**Done**: 2026-05-08 (4a48362)  
 **Priority**: High  
 **Language**: Python 3.11 (Azure Function) + C# HTTP wrapper  
 **Spec Reference**: `doc/11-AZR-document-classification-adapter.md`
@@ -1034,11 +1035,22 @@ heuristics. Both strategies are composable in the `AzureThenHeuristicPipeline`.
 #### Expected Outputs
 
 - `ue-uw-backend/shared-python/ksquare-document-classification/`
-  - `function_app.py`, `contracts.py`, `options.py`
-  - `providers/azure_classifier.py`, `heuristic_classifier.py`, `pipeline.py`
-  - `tests/test_pipeline.py`
-  - `tests/synthesizers/document_classification_synthesizer.py`
-  - `requirements.txt`
+  - `function_app.py`, `requirements.txt`, `pyproject.toml`
+  - `ksquare/document_classification/` (contracts, models, config, providers, pipeline)
+  - `tests/` (fixtures + unit tests)
+- `ue-uw-backend/shared/KSquare.DocumentClassification/`
+  - `Contracts/IDocumentClassifier.cs`
+  - `Configuration/DocumentClassificationOptions.cs`
+  - `Models/` (DocumentInput, ClassificationResult, etc.)
+  - `Providers/FunctionHttpDocumentClassifier.cs`, `MockDocumentClassifier.cs`
+  - `Extensions/ServiceCollectionExtensions.cs`
+- `ue-uw-backend/shared/KSquare.DocumentClassification.Tests/`
+
+#### Implementation Notes
+
+- Implemented the Azure→Heuristic pipeline per spec with deterministic unit tests; tests stub the Azure classifier call via `pytest-mock` patching rather than `respx` interception (the Azure SDK transport is not a plain `httpx` client).
+- Implemented the C# wrapper as a thin HTTP client to the Azure Function endpoint (same approach as KSPL-010), using in-process `HttpMessageHandler` stubs for tests.
+- Added `FunctionBaseUrl` to C# options to configure the function endpoint (implied by the wrapper requirement; not explicitly listed in the spec’s C# options snippet).
 
 #### Ticket Correlations
 
