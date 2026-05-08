@@ -74,6 +74,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.RatingAdapter.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.ProposalOrchestrator.Tests", "shared\KSquare.ProposalOrchestrator.Tests\KSquare.ProposalOrchestrator.Tests.csproj", "{D4F7612A-7E5B-4CD4-86A7-7F252E6A09E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.RulesEngine.Tests", "shared\KSquare.RulesEngine.Tests\KSquare.RulesEngine.Tests.csproj", "{4D0B4D43-CA95-4E0F-A503-B4A3A2213BB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -220,6 +222,10 @@ Global
 		{D4F7612A-7E5B-4CD4-86A7-7F252E6A09E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4F7612A-7E5B-4CD4-86A7-7F252E6A09E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4F7612A-7E5B-4CD4-86A7-7F252E6A09E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D0B4D43-CA95-4E0F-A503-B4A3A2213BB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D0B4D43-CA95-4E0F-A503-B4A3A2213BB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D0B4D43-CA95-4E0F-A503-B4A3A2213BB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D0B4D43-CA95-4E0F-A503-B4A3A2213BB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -236,5 +242,6 @@ Global
 		{A4E9A6E3-1E4B-4F3E-8B29-7D9866CFD908} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 		{D4D3F1A9-6D61-45E5-A0D5-0A1EED0BA7DD} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 		{E0AAB23C-14E9-4A3E-9B39-3E0D69DA7A20} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
+		{4D0B4D43-CA95-4E0F-A503-B4A3A2213BB1} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 	EndGlobalSection
 EndGlobal
