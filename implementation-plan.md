@@ -1921,7 +1921,7 @@ This serves three purposes simultaneously:
 ### KSPL-026: Lab Infrastructure and Scenario Runner Framework
 
 **Epic**: EPIC-09  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, 6513f66)  
 **Priority**: Critical  
 **Language**: Python 3.11  
 **Spec Reference**: `README.md` (project structure section), this EPIC
