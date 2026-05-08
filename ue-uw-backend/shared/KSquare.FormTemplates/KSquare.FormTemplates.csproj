@@ -4,4 +4,27 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\\KSquare.BlobStorage\\KSquare.BlobStorage.csproj" />
+    <ProjectReference Include="..\\KSquare.Correlation\\KSquare.Correlation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fluid.Core" Version="2.10.0" />
+    <PackageReference Include="itext7" Version="8.0.5" />
+    <PackageReference Include="itext.bouncy-castle-adapter" Version="8.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="8.0.0" />
+    <PackageReference Include="Polly" Version="8.4.0" />
+    <PackageReference Include="YamlDotNet" Version="13.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="FieldMaps\\Resources\\*.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="KSquare.FormTemplates.Tests" />
+  </ItemGroup>
 </Project>

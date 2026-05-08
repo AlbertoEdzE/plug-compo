@@ -1,0 +1,50 @@
+template_name: acord125
+version: "2024-Q1"
+output_format: pdf
+display_name: ACORD 125 Commercial Lines Application
+fields:
+  - placeholder: NamedInsured
+    display_label: Named Insured
+    domain_path: InsuredName
+    required: true
+    type: text
+
+  - placeholder: MailingAddress
+    display_label: Mailing Address
+    domain_path: InsuredAddress
+    required: true
+    type: text
+
+  - placeholder: EffectiveDate
+    display_label: Effective Date
+    domain_path: PolicyEffectiveDate
+    format: MM/dd/yyyy
+    required: true
+    type: date
+
+  - placeholder: ExpirationDate
+    display_label: Expiration Date
+    domain_path: PolicyExpirationDate
+    format: MM/dd/yyyy
+    required: true
+    type: date
+
+  - placeholder: TotalInsuredValue
+    display_label: Total Insured Value
+    domain_path: TotalInsuredValue
+    format: "C0"
+    required: false
+    type: decimal
+
+  - placeholder: BrokerName
+    display_label: Broker Name
+    domain_path: BrokerName
+    required: false
+    type: text
+
+  - placeholder: BrokerLicenseNo
+    display_label: Broker License No
+    domain_path: BrokerLicenseNumber
+    required: false
+    type: text
+

@@ -1,0 +1,37 @@
+template_name: binder
+version: "2024-Q1"
+display_name: Binder Document
+output_format: pdf
+fields:
+  - placeholder: InsuredName
+    display_label: Insured Name
+    domain_path: InsuredName
+    required: true
+    type: text
+
+  - placeholder: BinderNumber
+    display_label: Binder Number
+    domain_path: BinderNumber
+    required: true
+    type: text
+
+  - placeholder: BindDate
+    display_label: Bind Date
+    domain_path: BindDate
+    format: MM/dd/yyyy
+    required: true
+    type: date
+
+  - placeholder: TotalPremium
+    display_label: Total Premium
+    domain_path: TotalPremium
+    format: "C2"
+    required: true
+    type: decimal
+
+  - placeholder: UnderwriterName
+    display_label: Underwriter Name
+    domain_path: UnderwriterName
+    required: false
+    type: text
+

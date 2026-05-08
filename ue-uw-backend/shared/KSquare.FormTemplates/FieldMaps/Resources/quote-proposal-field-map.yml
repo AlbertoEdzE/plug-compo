@@ -1,0 +1,44 @@
+template_name: quote-proposal
+version: "2024-Q1"
+display_name: Quote Proposal
+output_format: pdf
+fields:
+  - placeholder: InsuredName
+    display_label: Insured Name
+    domain_path: InsuredName
+    required: true
+    type: text
+
+  - placeholder: QuoteNumber
+    display_label: Quote Number
+    domain_path: QuoteNumber
+    required: true
+    type: text
+
+  - placeholder: EffectiveDate
+    display_label: Effective Date
+    domain_path: EffectiveDate
+    format: MMMM dd, yyyy
+    required: true
+    type: date
+
+  - placeholder: ExpirationDate
+    display_label: Expiration Date
+    domain_path: ExpirationDate
+    format: MMMM dd, yyyy
+    required: true
+    type: date
+
+  - placeholder: TotalPremium
+    display_label: Total Premium
+    domain_path: TotalPremium
+    format: "C2"
+    required: true
+    type: decimal
+
+  - placeholder: BrokerName
+    display_label: Broker Name
+    domain_path: BrokerName
+    required: true
+    type: text
+
