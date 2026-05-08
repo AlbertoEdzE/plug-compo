@@ -1,1 +1,18 @@
+azure-functions
+openai>=1.30.0
+azure-identity>=1.15.0
+azure-ai-contentsafety>=1.0.0
+azure-search-documents>=11.4.0
+opentelemetry-api>=1.20.0
+opentelemetry-sdk>=1.20.0
+opentelemetry-exporter-otlp>=1.20.0
+azure-monitor-opentelemetry>=1.0.0
+pydantic>=2.0.0
+aiosqlite>=0.19.0
+httpx
 
+pytest
+pytest-asyncio
+pytest-mock
+respx
+faker
