@@ -1,0 +1,33 @@
+name: intake-routing
+version: "1.0"
+rules:
+  - rule_name: HighValueAutoRoute
+    priority: 100
+    description: High TIV submissions need senior UW
+    condition: "context.TotalInsuredValue > 10000000"
+    action: RouteToSeniorUnderwriter
+    reason: Total insured value exceeds $10M threshold
+
+  - rule_name: NewBrokerManualReview
+    priority: 90
+    condition: "context.BrokerTenureMonths < 6"
+    action: RouteToManualTriage
+    reason: Broker has less than 6 months relationship history
+
+  - rule_name: HighRiskIndustryReferral
+    priority: 80
+    condition: "context.NaicsCode.StartsWith(\"238\") || context.NaicsCode.StartsWith(\"484\")"
+    action: TriggerReferral
+    reason: NAICS code falls in high-risk construction or trucking industry
+
+  - rule_name: IncompleteApplicationManual
+    priority: 70
+    condition: "context.MissingRequiredFields.Count > 2"
+    action: RouteToManualTriage
+    reason: More than 2 required fields missing from application
+
+  - rule_name: DefaultAutoAssign
+    priority: 1
+    condition: "true"
+    action: AutoAssign
+    reason: Standard submission - auto-assign to available underwriter

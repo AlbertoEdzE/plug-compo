@@ -1,0 +1,27 @@
+name: bind-readiness
+version: "1.0"
+rules:
+  - rule_name: QuoteNotApproved
+    priority: 100
+    condition: "context.QuoteStatus != \"Approved\""
+    action: BlockBind
+    reason: Quote must be in Approved status before binding
+
+  - rule_name: SignedApplicationMissing
+    priority: 90
+    condition: "!context.HasSignedApplication"
+    action: BlockBind
+    reason: Signed application document is required before binding
+
+  - rule_name: PremiumNotAgreed
+    priority: 80
+    condition: "!context.PremiumAgreedByBroker"
+    action: BlockBind
+    reason: Broker must confirm premium before binding
+
+  - rule_name: ReadyToBind
+    priority: 1
+    condition: "true"
+    action: AllowBind
+    reason: All bind readiness checks passed
+

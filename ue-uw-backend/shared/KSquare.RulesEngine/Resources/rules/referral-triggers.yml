@@ -1,0 +1,27 @@
+name: referral-triggers
+version: "1.0"
+rules:
+  - rule_name: LargePriorLoss
+    priority: 100
+    condition: "context.LargestSingleLoss > 500000"
+    action: ReferralRequired
+    reason: Single loss exceeds $500K referral threshold
+
+  - rule_name: HighLossRatio
+    priority: 90
+    condition: "context.FiveYearLossRatio > 0.65"
+    action: ReferralRequired
+    reason: 5-year loss ratio exceeds 65%
+
+  - rule_name: MultipleLocations
+    priority: 80
+    condition: "context.NumberOfLocations > 10"
+    action: ReferralRequired
+    reason: More than 10 locations requires referral review
+
+  - rule_name: OutOfAppetiteNaics
+    priority: 100
+    condition: "context.OutOfAppetiteNaicsCodes.Contains(context.NaicsCode)"
+    action: Decline
+    reason: NAICS code is outside current underwriting appetite
+
