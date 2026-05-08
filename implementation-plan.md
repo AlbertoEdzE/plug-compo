@@ -2222,7 +2222,7 @@ Additional scenario flow:
 ### KSPL-031: Canvas 5 — Quote, Bind, and Lifecycle
 
 **Epic**: EPIC-09  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, 1c6190b)  
 **Priority**: High  
 **Language**: Python 3.11  
 **Spec Reference**: `doc/18-CUS-rating-adapter.md`, `doc/19-EXT-proposal-orchestrator.md`, `doc/20-CUS-policy-admin-adapter.md`, `doc/21-CUS-state-machine.md`
