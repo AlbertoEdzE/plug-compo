@@ -1359,7 +1359,7 @@ scores each response for groundedness and helpfulness.
 ### KSPL-017: LLM Observability
 
 **Epic**: EPIC-06  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, 40bad4e)  
 **Priority**: High  
 **Language**: Python 3.11 (Azure Function + FastAPI)  
 **Spec Reference**: `doc/17-AZR-llm-observability.md`
