@@ -1236,7 +1236,7 @@ This is the primary structured output that feeds the Document Narrative Engine (
 ### KSPL-015: Form Template Engine
 
 **Epic**: EPIC-05  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, 168ee60)  
 **Priority**: High  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/15-EXT-form-template-engine.md`
