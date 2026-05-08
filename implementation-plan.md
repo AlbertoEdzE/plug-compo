@@ -1291,7 +1291,7 @@ API). iText7 AcroForm fill is the self-hosted fallback. Both implement `IFormTem
 ### KSPL-013: LLM Provider and Agent Orchestrator
 
 **Epic**: EPIC-06  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, 8e7b25c)  
 **Priority**: High  
 **Language**: Python 3.11 (Azure Function) + C# HTTP wrapper  
 **Spec Reference**: `doc/13-HYB-llm-provider-adapter.md`
