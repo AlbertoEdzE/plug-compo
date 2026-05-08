@@ -1122,7 +1122,7 @@ Fields that cannot be mapped are returned as `UnmappedFields` for the Intelligen
 ### KSPL-014: Rules Engine (nRules)
 
 **Epic**: EPIC-05  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, d6db006)  
 **Priority**: High  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/14-CUS-rules-engine-nrules.md`
