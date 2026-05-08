@@ -55,7 +55,8 @@ public sealed class FunctionHttpAgentOrchestratorClient(HttpClient http, AgentOr
                 yield break;
             }
 
-            AgentStreamEvent? ev;
+            AgentStreamEvent? ev = null;
+            var parseError = false;
             try
             {
                 ev = JsonSerializer.Deserialize<AgentStreamEvent>(data, JsonOptions);
@@ -66,11 +67,16 @@ public sealed class FunctionHttpAgentOrchestratorClient(HttpClient http, AgentOr
             }
             catch (JsonException)
             {
+                parseError = true;
+            }
+
+            if (parseError)
+            {
                 yield return new AgentStreamEvent(Type: "ParseError", Error: "Failed to parse SSE event.");
                 continue;
             }
 
-            yield return ev;
+            yield return ev!;
         }
     }
 
