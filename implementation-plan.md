@@ -1416,7 +1416,7 @@ summaries. Azure Monitor receives custom metrics via the Application Insights SD
 ### KSPL-018: Rating Adapter
 
 **Epic**: EPIC-07  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, 2356f41)  
 **Priority**: High  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/18-CUS-rating-adapter.md`
