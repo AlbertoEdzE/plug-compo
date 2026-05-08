@@ -2166,7 +2166,7 @@ Additional scenario flow:
 ### KSPL-030: Canvas 4 — AI Agent Core
 
 **Epic**: EPIC-09  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, da8a720)  
 **Priority**: High  
 **Language**: Python 3.11  
 **Spec Reference**: `doc/13-HYB-llm-provider-adapter.md`, `doc/17-AZR-llm-observability.md`
