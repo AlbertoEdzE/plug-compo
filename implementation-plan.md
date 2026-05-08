@@ -1062,7 +1062,7 @@ heuristics. Both strategies are composable in the `AzureThenHeuristicPipeline`.
 ### KSPL-012: Extraction Result Mapper
 
 **Epic**: EPIC-04  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, 1fe2af6)  
 **Priority**: High  
 **Language**: C# .NET 8  
 **Spec Reference**: `doc/12-CUS-extraction-result-mapper.md`
