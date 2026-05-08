@@ -37,6 +37,9 @@ generated/
 *.log
 logs/
 
+# Lab reports
+lab/reports/
+
 # OS
 .DS_Store
 Thumbs.db
