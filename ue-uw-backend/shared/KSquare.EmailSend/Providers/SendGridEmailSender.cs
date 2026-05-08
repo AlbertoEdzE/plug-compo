@@ -34,7 +34,7 @@ public sealed class SendGridEmailSender : EmailSenderBase
             throw new InvalidOperationException("SendGridApiKey must be set for SendGrid provider.");
         }
 
-        _client = new SendGridClient(options.SendGridApiKey);
+        _client = CreateClient(options);
         _pipeline = BuildRetryPipeline(options, logger);
     }
 
@@ -143,6 +143,22 @@ public sealed class SendGridEmailSender : EmailSenderBase
         return new ResiliencePipelineBuilder<EmailSendResult>()
             .AddRetry(retry)
             .Build();
+    }
+
+    private static SendGridClient CreateClient(EmailSendOptions options)
+    {
+        if (string.IsNullOrWhiteSpace(options.SendGridBaseUrl))
+        {
+            return new SendGridClient(options.SendGridApiKey);
+        }
+
+        var clientOptions = new SendGridClientOptions
+        {
+            ApiKey = options.SendGridApiKey,
+            Host = options.SendGridBaseUrl
+        };
+
+        return new SendGridClient(clientOptions);
     }
 
     private static string? TryGetMessageId(Response response)

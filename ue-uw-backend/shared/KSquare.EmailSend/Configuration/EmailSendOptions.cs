@@ -4,6 +4,7 @@ public class EmailSendOptions
 {
     public EmailSendProvider Provider { get; set; } = EmailSendProvider.SendGrid;
     public string? SendGridApiKey { get; set; }
+    public string? SendGridBaseUrl { get; set; }
     public string? SmtpHost { get; set; }
     public int SmtpPort { get; set; } = 587;
     public string? SmtpUsername { get; set; }

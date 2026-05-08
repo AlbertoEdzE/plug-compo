@@ -9,6 +9,8 @@ public class EmailIngestionOptions
     public string? MailboxAddress { get; set; }
     public string? InboxFolderName { get; set; } = "Inbox";
     public string? ProcessedFolderName { get; set; } = "Processed";
+    public string? GraphApiBaseUrl { get; set; }
+    public string? GraphAuthToken { get; set; }
     public TimeSpan PollingInterval { get; set; } = TimeSpan.FromSeconds(30);
     public int MaxEmailsPerBatch { get; set; } = 20;
     public string AttachmentContainerName { get; set; } = "email-attachments";
@@ -20,6 +22,7 @@ public class EmailIngestionOptions
 public enum EmailIngestionProvider
 {
     MicrosoftGraph,
+    HttpGraphStub,
     Imap,
     Webhook
 }
