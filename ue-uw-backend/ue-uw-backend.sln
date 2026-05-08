@@ -88,6 +88,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.AiEmailTriage", "sh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.AiEmailTriage.Tests", "shared\KSquare.AiEmailTriage.Tests\KSquare.AiEmailTriage.Tests.csproj", "{E5C5B130-25C2-42DA-A789-A0BF380FF34B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.IntelligentPrefill", "shared\KSquare.IntelligentPrefill\KSquare.IntelligentPrefill.csproj", "{E4834A72-9C19-4BA1-AED0-C5F5E24CD343}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.IntelligentPrefill.Tests", "shared\KSquare.IntelligentPrefill.Tests\KSquare.IntelligentPrefill.Tests.csproj", "{F2764705-F960-4AD5-83DB-ED79E7B71DB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -262,6 +266,14 @@ Global
 		{E5C5B130-25C2-42DA-A789-A0BF380FF34B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5C5B130-25C2-42DA-A789-A0BF380FF34B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5C5B130-25C2-42DA-A789-A0BF380FF34B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4834A72-9C19-4BA1-AED0-C5F5E24CD343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4834A72-9C19-4BA1-AED0-C5F5E24CD343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4834A72-9C19-4BA1-AED0-C5F5E24CD343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4834A72-9C19-4BA1-AED0-C5F5E24CD343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2764705-F960-4AD5-83DB-ED79E7B71DB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2764705-F960-4AD5-83DB-ED79E7B71DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2764705-F960-4AD5-83DB-ED79E7B71DB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2764705-F960-4AD5-83DB-ED79E7B71DB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -285,5 +297,7 @@ Global
 		{9FFE262B-23AE-4530-A96A-EA71525928B4} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 		{1E744B61-B067-4FBA-911E-DA4A9E9C1D7F} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 		{E5C5B130-25C2-42DA-A789-A0BF380FF34B} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
+		{E4834A72-9C19-4BA1-AED0-C5F5E24CD343} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
+		{F2764705-F960-4AD5-83DB-ED79E7B71DB0} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 	EndGlobalSection
 EndGlobal
