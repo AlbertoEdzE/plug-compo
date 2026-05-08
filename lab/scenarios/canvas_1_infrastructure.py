@@ -40,14 +40,27 @@ class Canvas1InfrastructureScenario(ScenarioRunner):
         _try_run(["docker", "compose", "-f", str(compose), "up", "-d"])
 
     async def run(self) -> None:
+        expected = [
+            "synthesize_ids",
+            "correlation_propagates",
+            "synthesize_pii_payload",
+            "pii_redaction_before_audit",
+            "eventbus_single_delivery",
+            "idempotency_blocks_duplicate",
+            "azurite_blob_roundtrip",
+            "audit_append_only_two_writes",
+        ]
+
         infra_ok, infra_details = _wait_for_infra(timeout_seconds=60)
         if not infra_ok:
-            self.assert_true("infra_ready", False, infra_details)
+            for name in expected:
+                self.assert_true(name, False, infra_details)
             return
 
         harness_proj = Path(__file__).resolve().parent / "canvas_1_infrastructure_harness" / "Canvas1.csproj"
         if not harness_proj.exists():
-            self.assert_true("harness_exists", False, "Harness project missing.")
+            for name in expected:
+                self.assert_true(name, False, "Harness project missing.")
             return
 
         proc = subprocess.run(
@@ -68,17 +81,6 @@ class Canvas1InfrastructureScenario(ScenarioRunner):
             return
 
         assertions = payload.get("assertions", []) or []
-        expected = [
-            "synthesize_ids",
-            "correlation_propagates",
-            "synthesize_pii_payload",
-            "pii_redaction_before_audit",
-            "eventbus_single_delivery",
-            "idempotency_blocks_duplicate",
-            "azurite_blob_roundtrip",
-            "audit_append_only_two_writes",
-        ]
-
         by_name = {a.get("name"): a for a in assertions if isinstance(a, dict)}
         for name in expected:
             item = by_name.get(name)
