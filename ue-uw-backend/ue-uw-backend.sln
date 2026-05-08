@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.DocumentClassificat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.ExtractionMapper", "shared\KSquare.ExtractionMapper\KSquare.ExtractionMapper.csproj", "{17A68F8F-A098-4B78-B694-98ACF9A463D3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.AgentOrchestrator", "shared\KSquare.AgentOrchestrator\KSquare.AgentOrchestrator.csproj", "{6E19D3D8-CCDA-4F2F-9A1F-06BB2D872B90}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.RulesEngine", "shared\KSquare.RulesEngine\KSquare.RulesEngine.csproj", "{3365828E-3F01-4D3A-B972-3711B75237DA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KSquare.RiskAnalysis", "shared\KSquare.RiskAnalysis\KSquare.RiskAnalysis.csproj", "{B8FE27E2-F170-4F07-9F03-632FCB93C75C}"
@@ -65,6 +67,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.DocumentClassification.Tests", "shared\KSquare.DocumentClassification.Tests\KSquare.DocumentClassification.Tests.csproj", "{F503B01A-10EA-4BD9-8B37-241D2745338B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.ExtractionMapper.Tests", "shared\KSquare.ExtractionMapper.Tests\KSquare.ExtractionMapper.Tests.csproj", "{A4E9A6E3-1E4B-4F3E-8B29-7D9866CFD908}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSquare.AgentOrchestrator.Tests", "shared\KSquare.AgentOrchestrator.Tests\KSquare.AgentOrchestrator.Tests.csproj", "{D4D3F1A9-6D61-45E5-A0D5-0A1EED0BA7DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -120,6 +124,10 @@ Global
 		{17A68F8F-A098-4B78-B694-98ACF9A463D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17A68F8F-A098-4B78-B694-98ACF9A463D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17A68F8F-A098-4B78-B694-98ACF9A463D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E19D3D8-CCDA-4F2F-9A1F-06BB2D872B90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E19D3D8-CCDA-4F2F-9A1F-06BB2D872B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E19D3D8-CCDA-4F2F-9A1F-06BB2D872B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E19D3D8-CCDA-4F2F-9A1F-06BB2D872B90}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3365828E-3F01-4D3A-B972-3711B75237DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3365828E-3F01-4D3A-B972-3711B75237DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3365828E-3F01-4D3A-B972-3711B75237DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -196,6 +204,10 @@ Global
 		{A4E9A6E3-1E4B-4F3E-8B29-7D9866CFD908}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4E9A6E3-1E4B-4F3E-8B29-7D9866CFD908}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4E9A6E3-1E4B-4F3E-8B29-7D9866CFD908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4D3F1A9-6D61-45E5-A0D5-0A1EED0BA7DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4D3F1A9-6D61-45E5-A0D5-0A1EED0BA7DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4D3F1A9-6D61-45E5-A0D5-0A1EED0BA7DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4D3F1A9-6D61-45E5-A0D5-0A1EED0BA7DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -210,5 +222,6 @@ Global
 		{D79C4E12-1227-4248-941C-88826CA1946B} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 		{F503B01A-10EA-4BD9-8B37-241D2745338B} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 		{A4E9A6E3-1E4B-4F3E-8B29-7D9866CFD908} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
+		{D4D3F1A9-6D61-45E5-A0D5-0A1EED0BA7DD} = {E4863B4C-48A3-477A-9813-A9653D6B9A3A}
 	EndGlobalSection
 EndGlobal
