@@ -2278,7 +2278,7 @@ Additional scenario flow:
 ### KSPL-032: Canvas 6 — AI Intelligence Layer
 
 **Epic**: EPIC-09  
-**Status**: TO DO  
+**Status**: DONE (2026-05-08, 30caede)  
 **Priority**: Medium  
 **Language**: Python 3.11  
 **Spec Reference**: `doc/22-HYB-ai-email-triage.md`, `doc/23-HYB-intelligent-prefill-engine.md`, `doc/24-HYB-document-narrative-engine.md`, `doc/25-HYB-agentic-action-toolkit.md`
