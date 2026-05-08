@@ -1,1 +1,9 @@
+azure-functions
+openai>=1.30.0
+azure-identity>=1.15.0
+httpx
 
+pytest
+pytest-asyncio
+respx
+faker
